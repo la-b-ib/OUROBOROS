@@ -1374,65 +1374,65 @@ if uploaded_file:
                             if algo_id == 1:  # Persistent Homology
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Betti β₀", algo_result['betti_numbers']['b0'])
+                                    st.metric("Betti β₀", algo_result.get('betti_numbers', {}).get('b0', 0))
                                 with col2:
-                                    st.metric("Betti β₁", algo_result['betti_numbers']['b1'])
+                                    st.metric("Betti β₁", algo_result.get('betti_numbers', {}).get('b1', 0))
                                 with col3:
-                                    st.metric("Persistence Entropy", f"{algo_result['persistence_entropy']:.2f}")
+                                    st.metric("Persistence Entropy", f"{algo_result.get('persistence_entropy', 0):.2f}")
                                 
                                 # Visualize barcode
-                                if algo_result['persistence_pairs']:
+                                if algo_result.get('persistence_pairs'):
                                     fig = create_persistence_barcode_figure(algo_result['persistence_pairs'])
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_core_{algo_id}_barcode")
                             
                             elif algo_id == 2:  # Multifractal
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Spectrum Width Δα", f"{algo_result['spectrum_width']:.2f}")
+                                    st.metric("Spectrum Width Δα", f"{algo_result.get('spectrum_width', 0):.2f}")
                                 with col2:
-                                    st.metric("Peak Position", f"{algo_result['peak_position']:.2f}")
+                                    st.metric("Peak Position", f"{algo_result.get('peak_position', 0):.2f}")
                                 with col3:
-                                    st.metric("Asymmetry", f"{algo_result['asymmetry']:.2f}")
+                                    st.metric("Asymmetry", f"{algo_result.get('asymmetry', 0):.2f}")
                                 
-                                if algo_result['alpha'] and algo_result['f_alpha']:
+                                if algo_result.get('alpha') and algo_result.get('f_alpha'):
                                     fig = create_multifractal_spectrum_figure(algo_result['alpha'], algo_result['f_alpha'])
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_core_{algo_id}_multifractal")
                             
                             elif algo_id == 3:  # Spectral Graph
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Spectral Gap", f"{algo_result['spectral_gap']:.4f}")
+                                    st.metric("Spectral Gap", f"{algo_result.get('spectral_gap', 0):.4f}")
                                 with col2:
-                                    st.metric("Clusters", algo_result['n_clusters'])
+                                    st.metric("Clusters", algo_result.get('n_clusters', 0))
                                 with col3:
-                                    st.metric("Algebraic Connectivity", f"{algo_result['algebraic_connectivity']:.4f}")
+                                    st.metric("Algebraic Connectivity", f"{algo_result.get('algebraic_connectivity', 0):.4f}")
                                 
-                                if algo_result['eigenvalues']:
+                                if algo_result.get('eigenvalues'):
                                     fig = create_spectral_graph_figure(algo_result['eigenvalues'])
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_core_{algo_id}_spectral")
                             
                             elif algo_id == 4:  # RQA
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Recurrence Rate", f"{algo_result['recurrence_rate']:.3f}")
+                                    st.metric("Recurrence Rate", f"{algo_result.get('recurrence_rate', 0):.3f}")
                                 with col2:
-                                    st.metric("Determinism", f"{algo_result['determinism']:.3f}")
+                                    st.metric("Determinism", f"{algo_result.get('determinism', 0):.3f}")
                                 with col3:
-                                    st.metric("Laminarity", f"{algo_result['laminarity']:.3f}")
+                                    st.metric("Laminarity", f"{algo_result.get('laminarity', 0):.3f}")
                                 
-                                st.info(f"**Behavior:** {algo_result['behavior_class']}")
+                                st.info(f"**Behavior:** {algo_result.get('behavior_class', 'Unknown')}")
                             
                             elif algo_id == 5:  # Compression
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Min Compression", f"{algo_result['min_ratio']:.3f}")
+                                    st.metric("Min Compression", f"{algo_result.get('min_ratio', 0):.3f}")
                                 with col2:
-                                    st.metric("Entropy", f"{algo_result['entropy']:.2f} bits")
+                                    st.metric("Entropy", f"{algo_result.get('entropy', 0):.2f} bits")
                                 with col3:
-                                    st.metric("Packed", "Yes" if algo_result['is_packed'] else "No")
+                                    st.metric("Packed", "Yes" if algo_result.get('is_packed', False) else "No")
                                 
                                 # Show compression ratios - 3D
-                                ratios = algo_result['compression_ratios']
+                                ratios = algo_result.get('compression_ratios', {})
                                 fig = go.Figure()
                                 ratio_keys = list(ratios.keys())
                                 ratio_vals = list(ratios.values())
@@ -1465,33 +1465,33 @@ if uploaded_file:
                             elif algo_id == 6:  # DTW
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("DTW Distance", f"{algo_result['dtw_distance']:.1f}")
+                                    st.metric("DTW Distance", f"{algo_result.get('dtw_distance', 0):.1f}")
                                 with col2:
-                                    st.metric("Normalized", f"{algo_result['normalized_distance']:.3f}")
+                                    st.metric("Normalized", f"{algo_result.get('normalized_distance', 0):.3f}")
                                 with col3:
-                                    st.metric("CF Density", f"{algo_result['control_flow_density']:.2%}")
+                                    st.metric("CF Density", f"{algo_result.get('control_flow_density', 0):.2%}")
                             
                             elif algo_id == 7:  # LDA
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Topics", algo_result['n_topics'])
+                                    st.metric("Topics", algo_result.get('n_topics', 0))
                                 with col2:
-                                    st.metric("Avg Entropy", f"{algo_result['avg_entropy']:.2f}")
+                                    st.metric("Avg Entropy", f"{algo_result.get('avg_entropy', 0):.2f}")
                                 with col3:
-                                    st.metric("Topic Variance", f"{algo_result['topic_variance']:.3f}")
+                                    st.metric("Topic Variance", f"{algo_result.get('topic_variance', 0):.3f}")
                                 
                                 st.markdown("**Top Terms per Topic:**")
-                                for i, topic in enumerate(algo_result['topics']):
+                                for i, topic in enumerate(algo_result.get('topics', [])):
                                     st.caption(f"Topic {i+1}: {', '.join(topic)}")
                             
                             elif algo_id == 8:  # Benford
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("χ² Statistic", f"{algo_result['chi_square']:.2f}")
+                                    st.metric("χ² Statistic", f"{algo_result.get('chi_square', 0):.2f}")
                                 with col2:
-                                    st.metric("KS Statistic", f"{algo_result['ks_statistic']:.3f}")
+                                    st.metric("KS Statistic", f"{algo_result.get('ks_statistic', 0):.3f}")
                                 with col3:
-                                    st.metric("Conforms", "Yes" if algo_result['conforms_to_benford'] else "No")
+                                    st.metric("Conforms", "Yes" if algo_result.get('conforms_to_benford', False) else "No")
                                 
                                 # Plot distribution comparison - 3D
                                 fig = go.Figure()
@@ -1537,20 +1537,21 @@ if uploaded_file:
                             elif algo_id == 9:  # MinHash
                                 col1, col2 = st.columns(2)
                                 with col1:
-                                    st.metric("Signature Entropy", f"{algo_result['signature_entropy']:.2f}")
+                                    st.metric("Signature Entropy", f"{algo_result.get('signature_entropy', 0):.2f}")
                                 with col2:
-                                    st.caption(f"Signature: {algo_result['signature'][:5]}...")
+                                    sig = algo_result.get('signature', [])
+                                    st.caption(f"Signature: {sig[:5] if sig else 'N/A'}...")
                             
                             elif algo_id == 10:  # Z3
                                 col1, col2, col3 = st.columns(3)
                                 with col1:
-                                    st.metric("Opaque Predicates", algo_result['control_flow_anomalies'])
+                                    st.metric("Opaque Predicates", algo_result.get('control_flow_anomalies', 0))
                                 with col2:
-                                    st.metric("Arithmetic Chains", algo_result['arithmetic_chains'])
+                                    st.metric("Arithmetic Chains", algo_result.get('arithmetic_chains', 0))
                                 with col3:
-                                    st.metric("Obfuscation Score", f"{algo_result['obfuscation_score']:.4f}")
+                                    st.metric("Obfuscation Score", f"{algo_result.get('obfuscation_score', 0):.4f}")
                                 
-                                if algo_result['opaque_predicates']:
+                                if algo_result.get('opaque_predicates'):
                                     st.markdown("**Detected Opaque Predicates:**")
                                     for pred in algo_result['opaque_predicates']:
                                         st.caption(f"Offset {pred['offset']}: {pred['type']}")
@@ -1587,11 +1588,11 @@ if uploaded_file:
                                 if algo_id == 11 and HAS_INTERDISCIPLINARY:  # Gravitational Lensing
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Singularities", algo_result['n_singularities'])
+                                        st.metric("Singularities", algo_result.get('n_singularities', 0))
                                     with col2:
-                                        st.metric("Lensing Strength", f"{algo_result['lensing_strength']:.2f}")
+                                        st.metric("Lensing Strength", f"{algo_result.get('lensing_strength', 0):.2f}")
                                     with col3:
-                                        st.metric("Mass Concentration", f"{algo_result['mass_concentration']:.2f}")
+                                        st.metric("Mass Concentration", f"{algo_result.get('mass_concentration', 0):.2f}")
                                     
                                     fig = get_visualization(11, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_lensing")
@@ -1599,11 +1600,11 @@ if uploaded_file:
                                 elif algo_id == 12 and HAS_INTERDISCIPLINARY:  # Epigenetic
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Methylation Variance", f"{algo_result['methylation_variance']:.4f}")
+                                        st.metric("Methylation Variance", f"{algo_result.get('methylation_variance', 0):.4f}")
                                     with col2:
-                                        st.metric("Epigenetic Drift", f"{algo_result['epigenetic_drift']:.3f}")
+                                        st.metric("Epigenetic Drift", f"{algo_result.get('epigenetic_drift', 0):.3f}")
                                     with col3:
-                                        st.metric("Avg Accessibility", f"{algo_result['avg_accessibility']:.2f}")
+                                        st.metric("Avg Accessibility", f"{algo_result.get('avg_accessibility', 0):.2f}")
                                     
                                     fig = get_visualization(12, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_epigenetic")
@@ -1623,11 +1624,11 @@ if uploaded_file:
                                 elif algo_id == 14 and HAS_INTERDISCIPLINARY:  # Fluid Dynamics
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Reynolds Number", f"{algo_result['reynolds_number']:.1f}")
+                                        st.metric("Reynolds Number", f"{algo_result.get('reynolds_number', 0):.1f}")
                                     with col2:
-                                        st.metric("Flow Regime", algo_result['flow_regime'])
+                                        st.metric("Flow Regime", algo_result.get('flow_regime', 'Unknown'))
                                     with col3:
-                                        st.metric("Vortices", algo_result['n_vortices'])
+                                        st.metric("Vortices", algo_result.get('n_vortices', 0))
                                     
                                     fig = get_visualization(14, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_fluid")
@@ -1635,9 +1636,9 @@ if uploaded_file:
                                 elif algo_id == 15 and HAS_INTERDISCIPLINARY:  # Stylometric
                                     col1, col2 = st.columns(2)
                                     with col1:
-                                        st.metric("Zipf Ratio", f"{algo_result['zipf_ratio']:.2f}")
+                                        st.metric("Zipf Ratio", f"{algo_result.get('zipf_ratio', 0):.2f}")
                                     with col2:
-                                        st.metric("Type-Token Ratio", f"{algo_result['ttr_bigram']:.3f}")
+                                        st.metric("Type-Token Ratio", f"{algo_result.get('ttr_bigram', 0):.3f}")
                                     
                                     fig = get_visualization(15, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_stylometric")
@@ -1645,11 +1646,11 @@ if uploaded_file:
                                 elif algo_id == 16 and HAS_INTERDISCIPLINARY:  # Event Horizon
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Event Horizons", algo_result['n_event_horizons'])
+                                        st.metric("Event Horizons", algo_result.get('n_event_horizons', 0))
                                     with col2:
-                                        st.metric("Schwarzschild", "✓" if algo_result['schwarzschild_reached'] else "✗")
+                                        st.metric("Schwarzschild", "✓" if algo_result.get('schwarzschild_reached', False) else "✗")
                                     with col3:
-                                        st.metric("Max Curvature", f"{algo_result['max_curvature']:.2f}")
+                                        st.metric("Max Curvature", f"{algo_result.get('max_curvature', 0):.2f}")
                                     
                                     fig = get_visualization(16, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_entropy")
@@ -1657,11 +1658,11 @@ if uploaded_file:
                                 elif algo_id == 17 and HAS_INTERDISCIPLINARY:  # Symbiotic
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Parasitism", algo_result['relationships']['parasitism'])
+                                        st.metric("Parasitism", algo_result.get('relationships', {}).get('parasitism', 0))
                                     with col2:
-                                        st.metric("Invasive Species", algo_result['n_invasive_species'])
+                                        st.metric("Invasive Species", algo_result.get('n_invasive_species', 0))
                                     with col3:
-                                        st.metric("Biodiversity", f"{algo_result['biodiversity']:.2f}")
+                                        st.metric("Biodiversity", f"{algo_result.get('biodiversity', 0):.2f}")
                                     
                                     fig = get_visualization(17, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_symbiotic")
@@ -1669,11 +1670,11 @@ if uploaded_file:
                                 elif algo_id == 18 and HAS_INTERDISCIPLINARY:  # Temporal Manifold
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Temporal Anomalies", algo_result['n_temporal_anomalies'])
+                                        st.metric("Temporal Anomalies", algo_result.get('n_temporal_anomalies', 0))
                                     with col2:
-                                        st.metric("Time Loops", algo_result['time_loops_detected'])
+                                        st.metric("Time Loops", algo_result.get('time_loops_detected', 0))
                                     with col3:
-                                        st.metric("Causality Violations", algo_result['causality_violations'])
+                                        st.metric("Causality Violations", algo_result.get('causality_violations', 0))
                                     
                                     fig = get_visualization(18, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_temporal")
@@ -1681,14 +1682,14 @@ if uploaded_file:
                                 elif algo_id == 19 and HAS_INTERDISCIPLINARY:  # Neural-Symbolic
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Hybrid Confidence", f"{algo_result['hybrid_confidence']:.1%}")
+                                        st.metric("Hybrid Confidence", f"{algo_result.get('hybrid_confidence', 0):.1%}")
                                     with col2:
-                                        st.metric("Neural Confidence", f"{algo_result['neural_confidence']:.1%}")
+                                        st.metric("Neural Confidence", f"{algo_result.get('neural_confidence', 0):.1%}")
                                     with col3:
-                                        st.metric("Symbolic Confidence", f"{algo_result['symbolic_confidence']:.1%}")
+                                        st.metric("Symbolic Confidence", f"{algo_result.get('symbolic_confidence', 0):.1%}")
                                     
                                     st.markdown("**Logical Proof:**")
-                                    for step in algo_result['proof_steps']:
+                                    for step in algo_result.get('proof_steps', []):
                                         st.text(step)
                                     
                                     fig = get_visualization(19, algo_result)
@@ -1697,11 +1698,11 @@ if uploaded_file:
                                 elif algo_id == 20 and HAS_INTERDISCIPLINARY:  # Sonification
                                     col1, col2, col3 = st.columns(3)
                                     with col1:
-                                        st.metric("Spectral Centroid", f"{algo_result['spectral_centroid']:.1f} Hz")
+                                        st.metric("Spectral Centroid", f"{algo_result.get('spectral_centroid', 0):.1f} Hz")
                                     with col2:
-                                        st.metric("Audio Character", algo_result['audio_character'])
+                                        st.metric("Audio Character", algo_result.get('audio_character', 'Unknown'))
                                     with col3:
-                                        st.metric("Tempo", f"{algo_result['tempo']:.1f} BPS")
+                                        st.metric("Tempo", f"{algo_result.get('tempo', 0):.1f} BPS")
                                     
                                     fig = get_visualization(20, algo_result)
                                     st.plotly_chart(fig, use_container_width=True, key=f"chart_inter_{algo_id}_audio")
