@@ -11,19 +11,19 @@ pandas
 # Domain I: Topological & Geometric
 kmapper
 scikit-dimension
-toponetx
-geoopt
+# toponetx  # Complex dependency, using networkx alternatives
+# geoopt  # Optional manifold optimization
 persim
 ripser
-giotto-tda
+# giotto-tda  # Heavy dependency, using gudhi + ripser
 umap-learn
-isomap
+# isomap  # Built into scikit-learn
 
 # Domain II: Chaos & Dynamics
 nolds
 hurst
-nolitsa
-pyeeg
+# nolitsa  # Not available on PyPI, using hurst as alternative
+# pyeeg  # Optional, using scipy alternatives
 
 # Domain III: Bio-Digital
 biopython
@@ -45,36 +45,33 @@ sympy
 midiutil
 
 # Advanced Group I: TDA & Geometry
-pot  # Optimal Transport for Wasserstein distances
+# pot  # Optional Optimal Transport for Wasserstein distances
 scikit-learn
-torch  # For Topological Autoencoders
+# torch  # Heavy dependency - optional for Topological Autoencoders
 
 # Advanced Group II: Wavelets & Spectral
-ssqueezepy  # Synchrosqueezing for advanced wavelet analysis
-spectrum  # Spectral analysis methods
+# ssqueezepy  # Optional advanced wavelet
+# spectrum  # Redundant with scipy.signal
 
 # Advanced Group III: Information Theory
-jpype1  # For Java-based causal inference
-pyitlib  # Information theory library
-dit  # Discrete information theory
+# jpype1  # Java dependency - optional
+# pyitlib  # Optional
+# dit  # Optional discrete information theory
 
 # Advanced Group IV: Advanced Chaos
-fractaldim  # Generalized fractal dimensions
-ordpy  # Ordinal patterns
+# fractaldim  # Optional generalized fractal dimensions
+# ordpy  # Optional ordinal patterns
 
 # Advanced Group V: Statistical & ML
-scikit-fuzzy  # Fuzzy logic
-imbalanced-learn  # For SMOTE and advanced sampling
-statsmodels  # Statistical modeling
+# scikit-fuzzy  # Optional fuzzy logic
+imbalanced-learn
+statsmodels
 
 # Interdisciplinary Methods (Algorithms 11-20)
 # Physics & Quantum
-qiskit  # Quantum computing for Algorithm #13
-# Note: For simplified quantum walk, scipy is sufficient
+# qiskit  # Heavy quantum computing library - using scipy alternatives
 
 # Audio Engineering for Algorithm #20
-soundfile  # Audio I/O (optional, scipy sufficient for analysis)
-gudhi  # Already listed but critical
-networkx  # Already listed
-cvxpy  # Convex optimization for RPCA
-scikit-tda  # Additional TDA tools
+# soundfile  # Optional, scipy sufficient for analysis
+# cvxpy  # Optional convex optimization for RPCA
+# scikit-tda  # Optional, using gudhi + ripser instead
