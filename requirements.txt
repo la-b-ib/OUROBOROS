@@ -1,0 +1,80 @@
+streamlit
+numpy
+scipy
+gudhi
+pyrqa
+plotly
+pefile
+networkx
+pandas
+
+# Domain I: Topological & Geometric
+kmapper
+scikit-dimension
+toponetx
+geoopt
+persim
+ripser
+giotto-tda
+umap-learn
+isomap
+
+# Domain II: Chaos & Dynamics
+nolds
+hurst
+nolitsa
+pyeeg
+
+# Domain III: Bio-Digital
+biopython
+scikit-bio
+
+# Domain IV: Spectral & Signal
+fastdtw
+scikit-image
+pywavelets
+librosa
+pyriemann
+
+# Domain V: Symbolic & Logic
+z3-solver
+datasketch
+sympy
+
+# Domain VI: Sonification
+midiutil
+
+# Advanced Group I: TDA & Geometry
+pot  # Optimal Transport for Wasserstein distances
+scikit-learn
+torch  # For Topological Autoencoders
+
+# Advanced Group II: Wavelets & Spectral
+ssqueezepy  # Synchrosqueezing for advanced wavelet analysis
+spectrum  # Spectral analysis methods
+
+# Advanced Group III: Information Theory
+jpype1  # For Java-based causal inference
+pyitlib  # Information theory library
+dit  # Discrete information theory
+
+# Advanced Group IV: Advanced Chaos
+fractaldim  # Generalized fractal dimensions
+ordpy  # Ordinal patterns
+
+# Advanced Group V: Statistical & ML
+scikit-fuzzy  # Fuzzy logic
+imbalanced-learn  # For SMOTE and advanced sampling
+statsmodels  # Statistical modeling
+
+# Interdisciplinary Methods (Algorithms 11-20)
+# Physics & Quantum
+qiskit  # Quantum computing for Algorithm #13
+# Note: For simplified quantum walk, scipy is sufficient
+
+# Audio Engineering for Algorithm #20
+soundfile  # Audio I/O (optional, scipy sufficient for analysis)
+gudhi  # Already listed but critical
+networkx  # Already listed
+cvxpy  # Convex optimization for RPCA
+scikit-tda  # Additional TDA tools
