@@ -14,81 +14,81 @@
       - Output keys: `persistence_pairs`, `betti_numbers` (`b0`, `b1`), `persistence_entropy`, `threat_indicator`.
       - Notes: uses a Rips complex, caps infinite deaths to a finite value for entropy computation.**
 
-   - Algorithm 2 — Multifractal Spectrum (WTMM-style approximation) (`MultifractalSpectrumAdvanced`)
+   **- Algorithm 2 — Multifractal Spectrum (WTMM-style approximation) (`MultifractalSpectrumAdvanced`)
       - Purpose: estimate generalized Hurst exponents and the singularity spectrum (α vs f(α)) to measure complexity and non-stationary scaling.
-      - Output keys: `alpha`, `f_alpha`, `spectrum_width`, `peak_position`, `asymmetry`, `threat_indicator`.
+      - Output keys: `alpha`, `f_alpha`, `spectrum_width`, `peak_position`, `asymmetry`, `threat_indicator`.**
 
-   - Algorithm 3 — Spectral Graph Clustering (`SpectralGraphClustering`)
+   **- Algorithm 3 — Spectral Graph Clustering (`SpectralGraphClustering`)
       - Purpose: build a byte-transition graph, compute normalized Laplacian eigenvalues and perform spectral clustering to reveal modular structure.
-      - Output keys: `eigenvalues`, `spectral_gap`, `n_clusters`, `cluster_sizes`, `algebraic_connectivity`, `threat_indicator`.
+      - Output keys: `eigenvalues`, `spectral_gap`, `n_clusters`, `cluster_sizes`, `algebraic_connectivity`, `threat_indicator`.**
 
-   - Algorithm 4 — Advanced Recurrence Quantification Analysis (`RecurrenceQuantificationAdvanced`)
+   **- Algorithm 4 — Advanced Recurrence Quantification Analysis (`RecurrenceQuantificationAdvanced`)
       - Purpose: phase-space reconstruction then compute RQA metrics (recurrence rate, determinism, laminarity) to classify deterministic vs stochastic behavior.
-      - Output keys: `recurrence_rate`, `determinism`, `laminarity`, `behavior_class`, `threat_indicator`.
+      - Output keys: `recurrence_rate`, `determinism`, `laminarity`, `behavior_class`, `threat_indicator`.**
 
-   - Algorithm 5 — Normalized Compression Distance / Compression Profiling (`NormalizedCompressionDistance`)
+   **- Algorithm 5 — Normalized Compression Distance / Compression Profiling (`NormalizedCompressionDistance`)
       - Purpose: approximate Kolmogorov complexity by compression ratios (LZMA, BZ2, Zlib) and compute sample entropy; detect packed/encrypted payloads.
-      - Output keys: `compression_ratios`, `min_ratio`, `max_ratio`, `entropy`, `is_packed`, `threat_indicator`.
+      - Output keys: `compression_ratios`, `min_ratio`, `max_ratio`, `entropy`, `is_packed`, `threat_indicator`.**
 
-   - Algorithm 6 — Dynamic Time Warping (DTW) (`DynamicTimeWarpingAnalysis`)
+   **- Algorithm 6 — Dynamic Time Warping (DTW) (`DynamicTimeWarpingAnalysis`)
       - Purpose: elastic alignment of behavioral sequences (simulated opcode-like sequence) to detect time-warped matches.
-      - Output keys: `dtw_distance`, `normalized_distance`, `control_flow_density`, `sequence_length`, `threat_indicator`.
+      - Output keys: `dtw_distance`, `normalized_distance`, `control_flow_density`, `sequence_length`, `threat_indicator`.**
 
-   - Algorithm 7 — Latent Dirichlet Allocation (LDA) for opcode topic modeling (`LatentDirichletAllocationAnalysis`)
+   **- Algorithm 7 — Latent Dirichlet Allocation (LDA) for opcode topic modeling (`LatentDirichletAllocationAnalysis`)
       - Purpose: treat byte n-grams as words and basic-block windows as documents to extract latent topics and compute topic entropy.
-      - Output keys: `n_topics`, `avg_entropy`, `topic_variance`, `topics`, `threat_indicator`.
+      - Output keys: `n_topics`, `avg_entropy`, `topic_variance`, `topics`, `threat_indicator`.**
 
-   - Algorithm 8 — Benford's Law Deviation Analysis (`BenfordsLawAnalysis`)
+   **- Algorithm 8 — Benford's Law Deviation Analysis (`BenfordsLawAnalysis`)
       - Purpose: measure divergence from Benford's expected first-digit distribution to detect synthetic or contrived data.
-      - Output keys: `chi_square`, `ks_statistic`, `mad`, `observed_dist`, `expected_dist`, `conforms_to_benford`, `threat_indicator`.
+      - Output keys: `chi_square`, `ks_statistic`, `mad`, `observed_dist`, `expected_dist`, `conforms_to_benford`, `threat_indicator`.**
 
-   - Algorithm 9 — MinHash Locality-Sensitive Hashing (`MinHashLSH`)
+   **- Algorithm 9 — MinHash Locality-Sensitive Hashing (`MinHashLSH`)
       - Purpose: produce MinHash signatures for fast approximate similarity queries (fuzzy matching) using byte n-grams.
-      - Output keys: `signature`, `signature_entropy`, `similarities`, `threat_indicator`.
+      - Output keys: `signature`, `signature_entropy`, `similarities`, `threat_indicator`.**
 
-   - Algorithm 10 — Z3 Symbolic Execution (`SymbolicExecutionZ3`)
+   **- Algorithm 10 — Z3 Symbolic Execution (`SymbolicExecutionZ3`)
       - Purpose: use SMT (Z3) style symbolic checks to find opaque predicates and simple obfuscation patterns.
-      - Output keys: `opaque_predicates`, `control_flow_anomalies`, `arithmetic_chains`, `obfuscation_score`, `threat_indicator`.
+      - Output keys: `opaque_predicates`, `control_flow_anomalies`, `arithmetic_chains`, `obfuscation_score`, `threat_indicator`.**
 
-   - Algorithm 11 — Topological Autoencoder (`TopologicalAutoencoder`) and Gravitational Lensing De-obfuscator (`GravitationalLensingDeobfuscator` in interdisciplinary suite)
+   **- Algorithm 11 — Topological Autoencoder (`TopologicalAutoencoder`) and Gravitational Lensing De-obfuscator (`GravitationalLensingDeobfuscator` in interdisciplinary suite)
       - Purpose: (a) Topological autoencoder: train a representation preserving Betti numbers (simplified). (b) Gravitational lensing: physics-inspired mass/potential curvature mapping to detect concentrated obfuscation.
-      - Output keys (interdisciplinary 11): `gravitational_map`, `n_singularities`, `lensing_strength`, `mass_concentration`, `threat_indicator`.
+      - Output keys (interdisciplinary 11): `gravitational_map`, `n_singularities`, `lensing_strength`, `mass_concentration`, `threat_indicator`.**
 
-   - Algorithm 12 — Zigzag Persistence / Epigenetic State Tracking
+   **- Algorithm 12 — Zigzag Persistence / Epigenetic State Tracking
       - Purpose: (a) Zigzag tracks topology across temporal chunks. (b) Epigenetic tracker uses genomics-inspired CpG densities and accessibility to find modification-like patterns.
-      - Output keys (interdisciplinary 12): `cpg_density`, `methylation_variance`, `avg_accessibility`, `threat_indicator`.
+      - Output keys (interdisciplinary 12): `cpg_density`, `methylation_variance`, `avg_accessibility`, `threat_indicator`.**
 
-   - Algorithm 13 — Isomap/LLE / Quantum Walk Control Flow
+   **- Algorithm 13 — Isomap/LLE / Quantum Walk Control Flow
       - Purpose: manifold learning (Isomap/LLE) and quantum-walk-inspired CFG exploration to find non-classical path probability peaks.
-      - Output keys (quantum walk): `probability_distribution`, `n_interference_peaks`, `quantum_coherence`, `entanglement_entropy`, `threat_indicator`.
+      - Output keys (quantum walk): `probability_distribution`, `n_interference_peaks`, `quantum_coherence`, `entanglement_entropy`, `threat_indicator`.**
 
-   - Algorithm 14 — Quasi-Monte Carlo TDA / Fluid Dynamics Data Flow
+   **- Algorithm 14 — Quasi-Monte Carlo TDA / Fluid Dynamics Data Flow
       - Purpose: low-discrepancy sampling for TDA (Sobol) and Navier–Stokes-inspired analysis of data-flow to detect vortices/turbulence.
-      - Output keys (fluid): `vorticity_map`, `n_vortices`, `turbulent_kinetic_energy`, `reynolds_number`, `flow_regime`, `threat_indicator`.
+      - Output keys (fluid): `vorticity_map`, `n_vortices`, `turbulent_kinetic_energy`, `reynolds_number`, `flow_regime`, `threat_indicator`.**
 
-   - Algorithm 15 — Stylometric Phonetic Radar
+   **- Algorithm 15 — Stylometric Phonetic Radar
       - Purpose: stylometry-like analysis of byte n-grams producing radar-style stylistic dimensions (vocabulary richness, rhythmic complexity, etc.).
-      - Output keys: `stylometric_dimensions`, `zipf_ratio`, `ttr_bigram`, `threat_indicator`.
+      - Output keys: `stylometric_dimensions`, `zipf_ratio`, `ttr_bigram`, `threat_indicator`.**
 
-   - Algorithm 16 — Event Horizon Entropy Surface
+   **- Algorithm 16 — Event Horizon Entropy Surface
       - Purpose: sliding-window entropy mapping; detect sharp entropy jumps ("event horizons") that correspond to packing/encryption boundaries.
-      - Output keys: `entropy_profile`, `n_event_horizons`, `total_horizon_area`, `schwarzschild_reached`, `threat_indicator`.
+      - Output keys: `entropy_profile`, `n_event_horizons`, `total_horizon_area`, `schwarzschild_reached`, `threat_indicator`.**
 
-   - Algorithm 17 — Symbiotic Process Tree
+   **- Algorithm 17 — Symbiotic Process Tree
       - Purpose: ecology-inspired analysis of process dependency graphs to detect parasitic or invasive connectivity patterns.
-      - Output keys: `relationships`, `biodiversity`, `n_invasive_species`, `connectance`, `threat_indicator`.
+      - Output keys: `relationships`, `biodiversity`, `n_invasive_species`, `connectance`, `threat_indicator`.**
 
-   - Algorithm 18 — Chrono-Slicing Temporal Manifold
+   **- Algorithm 18 — Chrono-Slicing Temporal Manifold
       - Purpose: 4D (space × time) slicing of code evolution, hypercube projection and anomaly detection across temporal slices.
-      - Output keys: `n_temporal_anomalies`, `total_4d_volume`, `time_loops_detected`, `projection_quality`, `threat_indicator`.
+      - Output keys: `n_temporal_anomalies`, `total_4d_volume`, `time_loops_detected`, `projection_quality`, `threat_indicator`.**
 
-   - Algorithm 19 — Neural–Symbolic Hybrid Verifier
+   **- Algorithm 19 — Neural–Symbolic Hybrid Verifier
       - Purpose: combine learned anomaly scores with symbolic constraint checks (entropy bounds, type/memory safety) to produce a verifiable confidence and proof steps.
-      - Output keys: `hybrid_confidence`, `neural_confidence`, `symbolic_confidence`, `proof_steps`, `threat_indicator`.
+      - Output keys: `hybrid_confidence`, `neural_confidence`, `symbolic_confidence`, `proof_steps`, `threat_indicator`.**
 
-   - Algorithm 20 — Sonification Spectral Audio
+   **- Algorithm 20 — Sonification Spectral Audio
       - Purpose: convert byte sequences to audio and analyze spectral/temporal features (centroid, bandwidth, tempo, MFCCs) for perceptual detection.
-      - Output keys: `spectrogram_power`, `spectral_centroid`, `tempo`, `mfcc`, `audio_character`, `threat_indicator`.
+      - Output keys: `spectrogram_power`, `spectral_centroid`, `tempo`, `mfcc`, `audio_character`, `threat_indicator`.**
 
    </samp>
 
