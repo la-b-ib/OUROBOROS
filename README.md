@@ -119,7 +119,7 @@ where $m = \dim(M)$. Generically, $F$ is embedding.
 
 **Practical implementation:** $d \geq 2m+1$, $\tau$ optimal:
 $$\text{MI}(\tau) = \sum p(x_t, x_{t+\tau}) \log\frac{p(x_t, x_{t+\tau})}{p(x_t)p(x_{t+\tau})}$$
-Vectors: $X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T$
+**Vectors:** $X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T$
 
 <hr>
 
@@ -139,7 +139,7 @@ with $\eta: D_1 \to D_2$ bijection.
 $p$-Wasserstein between diagrams $D_1, D_2$:
 $$W_p(D_1, D_2) = \left( \inf_{\eta} \sum_{x \in D_1} ||x - \eta(x)||^p \right)^{1/p}$$
 
-Kernel via heat diffusion:
+**Kernel via heat diffusion:**
 $$k(D_1, D_2) = \frac{1}{8\pi t} \sum_{p \in D_1} \sum_{q \in D_2} e^{-\frac{||p-q||^2}{8t}}$$
 
 **Sliced-Wasserstein:** Project to lines $\theta \in S^1$:
@@ -149,22 +149,34 @@ $$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$
 
 **4. Persistent Entropy**
 
-For intervals $\{(b_i, d_i)\}_{i=1}^n$, $p_i = d_i - b_i$, $L = \sum_i p_i$:
-$$P_i = \frac{p_i}{L}, \quad H = -\sum_{i=1}^n P_i \log_2 P_i$$
 
-**Max entropy:** $H_{\max} = \log_2 n$ when $p_i = L/n$ ∀i
+**Persistent Entropy**
 
-**Min entropy:** $H_{\min} = 0$ when $p_k = L$, $p_i = 0$ for $i \neq k$
+Given persistence intervals $\{(b_i, d_i)\}_{i=1}^n$:
+
+Define persistence: $p_i = d_i - b_i$  
+Total persistence: $L = \sum_{i=1}^n p_i$  
+Normalized persistence: $P_i = \frac{p_i}{L}$
+
+Then persistent entropy:  
+$$H = -\sum_{i=1}^n P_i \log_2 P_i$$
+
+**Properties:**  
+- **Maximum:** $H_{\max} = \log_2 n$ when $P_i = \frac{1}{n} \ \forall i$  
+- **Minimum:** $H_{\min} = 0$ when $\exists k$ such that $P_k = 1$, $P_i = 0 \ \forall i \neq k$  
+- **Monotonic:** Adding zero-length intervals leaves $H$ unchanged  
+- **Scale-invariant:** $H(\alpha p_i) = H(p_i)$ for $\alpha > 0$
+
 
 <hr>
 
 **5. Multifractal Spectrum**
 
-Partition function: $Z(q, \epsilon) = \sum_i \mu(B_i(\epsilon))^q$
+**Partition function:** $Z(q, \epsilon) = \sum_i \mu(B_i(\epsilon))^q$
 
-Scaling: $Z(q, \epsilon) \sim \epsilon^{\tau(q)}$ as $\epsilon \to 0$
+**Scaling:** $Z(q, \epsilon) \sim \epsilon^{\tau(q)}$ as $\epsilon \to 0$
 
-Legendre transform:
+**Legendre transform:**
 $$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$
 
 **Proof:** From large deviations: $\Pr(\alpha_\epsilon \approx \alpha) \sim \epsilon^{-f(\alpha)}$
@@ -173,25 +185,42 @@ $$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$
 
 **6. RQA Quantifiers**
 
-Recurrence matrix: $R_{ij} = \Theta(\epsilon - ||X_i - X_j||)$
+**Recurrence matrix:**
+$$R_{ij} = \Theta(\varepsilon - \lVert X_i - X_j \rVert)$$
+where:
+- $\Theta$: Heaviside function
+- $\varepsilon$: recurrence threshold
+- $X_i \in \mathbb{R}^d$: embedded vectors
 
-Recurrence rate: $RR = \frac{1}{N^2}\sum_{i,j} R_{ij}$
+**Recurrence rate (RR):**
+$$RR = \frac{1}{N^2} \sum_{i,j=1}^N R_{ij}$$
 
-Determinism: $DET = \frac{\sum_{\ell=\ell_{\min}}^N \ell P(\ell)}{\sum_{\ell=1}^N \ell P(\ell)}$
+**Determinism (DET):**
+Let $P_{\ell} = \text{number of diagonal lines of length } \ell \text{ in } R$
+$$DET = \frac{\sum_{\ell=\ell_{\min}}^{N} \ell \cdot P_{\ell}}{\sum_{\ell=1}^{N} \ell \cdot P_{\ell}}$$
 
-Laminarity: $LAM = \frac{\sum_{v=v_{\min}}^N v P(v)}{\sum_{v=1}^N v P(v)}$
+**Laminarity (LAM):**
+Let $P_{v} = \text{number of vertical lines of length } v \text{ in } R$
+$$LAM = \frac{\sum_{v=v_{\min}}^{N} v \cdot P_{v}}{\sum_{v=1}^{N} v \cdot P_{v}}$$
 
-where $P(\ell) = \#\{\text{diagonals of length } \ell\}$
+**Typical parameters:**
+- $\ell_{\min} = 2$ (minimal diagonal line length)
+- $v_{\min} = 2$ (minimal vertical line length)
 
+**Interpretation:**
+- $RR \in [0,1]$: density of recurrence points
+- $DET \in [0,1]$: predictability of system
+- $LAM \in [0,1]$: presence of laminar states
+  
 <hr>
 
 **7. Cheeger Inequality**
 
 For graph $G$, normalized Laplacian $L = I - D^{-1/2}AD^{-1/2}$, eigenvalues $0 = \lambda_0 \leq \lambda_1 \leq \dots$
 
-Cheeger constant: $h(G) = \min_{S \subset V} \frac{|\partial S|}{\min(\text{vol}(S), \text{vol}(V\setminus S))}$
+**Cheeger constant:** $h(G) = \min_{S \subset V} \frac{|\partial S|}{\min(\text{vol}(S), \text{vol}(V\setminus S))}$
 
-Inequality: $\frac{\lambda_1}{2} \leq h(G) \leq \sqrt{2\lambda_1}$
+**Inequality:** $\frac{\lambda_1}{2} \leq h(G) \leq \sqrt{2\lambda_1}$
 
 **Proof:** Rayleigh quotient minimax.
 
@@ -213,7 +242,7 @@ with $C(0,0) = 0$, $C(i,0) = C(0,j) = \infty$
 Based on Kolmogorov complexity $K(x)$:
 $$d(x,y) = \frac{\max\{K(x|y), K(y|x)\}}{\max\{K(x), K(y)\}}$$
 
-NCD approximation: $C$ compressor,
+**NCD approximation:** $C$ compressor,
 $$NCD(x,y) = \frac{C(xy) - \min\{C(x), C(y)\}}{\max\{C(x), C(y)\}}$$
 
 **Properties:** $0 \leq NCD \leq 1 + \epsilon$, $NCD(x,x) \approx 0$
@@ -222,11 +251,11 @@ $$NCD(x,y) = \frac{C(xy) - \min\{C(x), C(y)\}}{\max\{C(x), C(y)\}}$$
 
 **10. Benford Distribution**
 
-First digit law: $P(d) = \log_{10}\left(1 + \frac{1}{d}\right)$ for $d \in \{1,\dots,9\}$
+**First digit law:** $P(d) = \log_{10}\left(1 + \frac{1}{d}\right)$ for $d \in \{1,\dots,9\}$
 
 **Derivation:** Scale invariance → unique solution: $P(S) = \int_S \frac{1}{x \ln 10} dx$
 
-Test statistic: $\chi^2 = \sum_{d=1}^9 \frac{(n_d - nP(d))^2}{nP(d)} \sim \chi^2_8$
+**Test statistic:** $\chi^2 = \sum_{d=1}^9 \frac{(n_d - nP(d))^2}{nP(d)} \sim \chi^2_8$
 
 <hr>
 
@@ -235,7 +264,7 @@ Test statistic: $\chi^2 = \sum_{d=1}^9 \frac{(n_d - nP(d))^2}{nP(d)} \sim \chi^2
 For sets $A,B$, permutations $\pi_1,\dots,\pi_k$:
 $$\hat{J}(A,B) = \frac{1}{k}\sum_{i=1}^k \mathbb{I}[\min(\pi_i(A)) = \min(\pi_i(B))]$$
 
-Variance: $\text{Var}(\hat{J}) = \frac{J(1-J)}{k}$
+**Variance:** $\text{Var}(\hat{J}) = \frac{J(1-J)}{k}$
 
 **Proof:** $\Pr(\min(\pi(A)) = \min(\pi(B))) = \frac{|A \cap B|}{|A \cup B|} = J(A,B)$
 
@@ -243,7 +272,7 @@ Variance: $\text{Var}(\hat{J}) = \frac{J(1-J)}{k}$
 
 **12. LDA Parameter Estimation**
 
-Joint probability:
+**Joint probability:**
 $$p(\mathbf{w}, \mathbf{z}, \theta|\alpha, \beta) = \prod_d p(\theta_d|\alpha) \prod_n p(z_{dn}|\theta_d) p(w_{dn}|z_{dn},\beta)$$
 
 M-step for $\beta$: $\beta_{kw} \propto \sum_{d,n} \phi_{dnk} \mathbb{I}[w_{dn} = w]$
