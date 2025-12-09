@@ -98,6 +98,8 @@
 
 ## **<samp>Ensemble Framework</samp>**
 
+
+
 <samp>
 
 Let $\mathcal{A} = \{A_i\}_{i=1}^m$ be the finite set of classification algorithms, where $m = |\mathcal{A}| \geq 1$.  
@@ -192,6 +194,7 @@ $$
 
 
 <details>
+   
 **<summary>Mathematical Appendix</summary>**
 
 <samp>
