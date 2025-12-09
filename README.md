@@ -94,19 +94,77 @@
 
    </details>
 
-   Ensemble decision logic (both engines)
 
-   - Each engine runs the selected subset of algorithms and counts `threat_indicator` votes. Confidence is computed as
 
-      $$\text{confidence} = \frac{\text{threat_votes}}{\text{total_algorithms}}$$
-
-   - The code maps `confidence` to discrete verdicts: LOW / MODERATE / HIGH using thresholds (implemented in the engines and UI). The `EnsembleFusionEngine.analyze` method returns a dictionary with `confidence`, `threat_votes`, `total_algorithms`, `verdict`, `individual_results`.
-
-   --
-
- 
 <details>
-   
+
+**<summary> Ensemble Decision Logic : </summary>**
+
+<samp>
+
+**Voting Scheme**  
+Let $\mathcal{A} = \{a_1, a_2, \dots, a_m\}$ be the set of $m$ algorithms.  
+Each algorithm $a_i \in \mathcal{A}$ outputs a binary threat indicator:
+
+```math
+I_i =
+\begin{cases}
+1, & \text{threat detected} \\
+0, & \text{no threat detected}
+\end{cases}
+\quad \forall i = 1,\dots,m
+```
+
+**Threat Vote Count**  
+```math
+V = \sum_{i=1}^m I_i
+```
+
+**Confidence Score**  
+```math
+C = \frac{V}{m} \in [0,1]
+```
+
+**Decision Rule**  
+Let $t_L, t_H \in (0,1)$ with $t_L < t_H$ (default: $t_L = 0.33$, $t_H = 0.67$).  
+Then the verdict is given by:
+
+```math
+\text{verdict} =
+\begin{cases}
+\text{LOW}, & C < t_L \\
+\text{MODERATE}, & t_L \le C < t_H \\
+\text{HIGH}, & C \ge t_H
+\end{cases}
+```
+
+**Output Structure**  
+```math
+\text{result} =
+\begin{cases}
+\text{confidence} & = C \\
+\text{threat\_votes} & = V \\
+\text{total\_algorithms} & = m \\
+\text{verdict} & \in \{\text{LOW}, \text{MODERATE}, \text{HIGH}\} \\
+\text{individual\_results} & = \{(a_i, I_i) \mid i = 1,\dots,m\}
+\end{cases}
+```
+
+**Generalization – Weighted Voting**  
+Let $w_i \ge 0$, $\sum_{i=1}^m w_i = 1$ be algorithm weights.  
+Then the weighted confidence is:
+
+```math
+C_w = \sum_{i=1}^m w_i I_i
+```
+
+and the verdict follows the same threshold rule applied to $C_w$.
+
+
+</samp>
+</details>
+
+<details>
 **<summary>Mathematical Appendix</summary>**
 
 <samp>
@@ -331,35 +389,24 @@ Let $h_1,\dots,h_T$ classifiers, outputs $\hat{y}_i^t$, true $y$
 
 </details>
 
-   References and recommended reading (concise)
 
-    - Edelsbrunner, H. & Harer, J. Computational Topology: An Introduction.
-    - Cohen-Steiner, D., Edelsbrunner, H., & Harer, J. Stability of persistence diagrams. 2007.
-    - Villani, C. Optimal Transport: Old and New.
-    - Strogatz, S. Nonlinear Dynamics and Chaos.
-    - Rosenstein, Wolf, & Ott — algorithms for Lyapunov exponent estimation.
-    - Bishop, C. M. Pattern Recognition and Machine Learning (LDA background, probabilistic models).
-    - Niederreiter, H., Sobol sequence references for QMC.
+<details>
+   
+**<summary>References</summary>**
+
+<samp>
+   
+**The core references grounding this work span computational topology, dynamical systems, probabilistic modeling, and numerical methods. Foundational texts include Edelsbrunner and Harer’s *Computational Topology* and their stability results on persistence diagrams, Villani’s *Optimal Transport* for Wasserstein theory, and Strogatz’s *Nonlinear Dynamics and Chaos* alongside Rosenstein, Wolf, and Ott’s algorithms for Lyapunov exponents. Bishop’s *Pattern Recognition and Machine Learning* provides background on LDA and probabilistic models, while Niederreiter’s work on Sobol sequences underpins quasi‑Monte Carlo sampling. Together, these sources supply the theoretical backbone for persistence, chaos analysis, probabilistic inference, and advanced sampling techniques.**
+    
+</samp>                           
+     
+</details>
+
+## 
 
 
 
-   Reproducibility and runtime notes
-
-   - Several algorithms use optional, heavy dependencies (e.g. `gudhi`, `pyrqa`, `z3`, `datasketch`, `scikit-learn`, `scipy`). The UI contains fallback implementations where possible but for full functionality install the full `requirements.txt` environment.
-
-   - For interactive visualizations the project uses Plotly (`plotly`), and Streamlit (`streamlit`) for the UI.
-
-   --
-
-   How to extend or inspect algorithms
-
-   - Each algorithm is encapsulated as a class with a `compute(bytes_data, **kwargs)` method returning a dictionary. To add an algorithm: implement a new class in `advanced_methods.py` or `interdisciplinary_methods.py`, instantiate it in the corresponding ensemble engine, and add UI wiring in `app.py` and an optional visualization in `interdisciplinary_visualizations.py`.
-
-   --
-
- 
-
-   License and attribution
+License and attribution
 
    - See `LICENSE` in the repository root for licensing information.
 
