@@ -105,10 +105,11 @@
    --
 
  
+<details>
+   
+**<summary>Mathematical Appendix</summary>**
 
-   **Mathematical Appendix**
-
-   This appendix provides more rigorous statements, derivations, and references for the core mathematical tools relied on across the codebase. It is intentionally concise and references standard literature where full proofs appear.
+<samp>
 
 **1. Takens' Embedding Theorem**
 
@@ -120,7 +121,7 @@ where $m = \dim(M)$. Generically, $F$ is embedding.
 $$\text{MI}(\tau) = \sum p(x_t, x_{t+\tau}) \log\frac{p(x_t, x_{t+\tau})}{p(x_t)p(x_{t+\tau})}$$
 Vectors: $X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T$
 
----
+<hr>
 
 **2. VR Persistence Stability**
 
@@ -131,7 +132,7 @@ with $\eta: D_1 \to D_2$ bijection.
 
 **Proof sketch:** Stability of persistent modules → bound on diagrams.
 
-
+<hr>
 
 **3. Wasserstein Kernels**
 
@@ -144,7 +145,7 @@ $$k(D_1, D_2) = \frac{1}{8\pi t} \sum_{p \in D_1} \sum_{q \in D_2} e^{-\frac{||p
 **Sliced-Wasserstein:** Project to lines $\theta \in S^1$:
 $$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$
 
-
+<hr>
 
 **4. Persistent Entropy**
 
@@ -155,7 +156,7 @@ $$P_i = \frac{p_i}{L}, \quad H = -\sum_{i=1}^n P_i \log_2 P_i$$
 
 **Min entropy:** $H_{\min} = 0$ when $p_k = L$, $p_i = 0$ for $i \neq k$
 
-
+<hr>
 
 **5. Multifractal Spectrum**
 
@@ -168,7 +169,7 @@ $$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$
 
 **Proof:** From large deviations: $\Pr(\alpha_\epsilon \approx \alpha) \sim \epsilon^{-f(\alpha)}$
 
-
+<hr>
 
 **6. RQA Quantifiers**
 
@@ -182,7 +183,7 @@ Laminarity: $LAM = \frac{\sum_{v=v_{\min}}^N v P(v)}{\sum_{v=1}^N v P(v)}$
 
 where $P(\ell) = \#\{\text{diagonals of length } \ell\}$
 
-
+<hr>
 
 **7. Cheeger Inequality**
 
@@ -194,7 +195,7 @@ Inequality: $\frac{\lambda_1}{2} \leq h(G) \leq \sqrt{2\lambda_1}$
 
 **Proof:** Rayleigh quotient minimax.
 
-
+<hr>
 
 **8. DTW Optimization**
 
@@ -204,6 +205,8 @@ with $C(0,0) = 0$, $C(i,0) = C(0,j) = \infty$
 
 **Sakoe-Chiba band:** $|i-j| \leq w$, complexity $O(w \cdot \min(m,n))$
 
+
+<hr>
 
 **9. NCD & Information Distance**
 
@@ -215,7 +218,7 @@ $$NCD(x,y) = \frac{C(xy) - \min\{C(x), C(y)\}}{\max\{C(x), C(y)\}}$$
 
 **Properties:** $0 \leq NCD \leq 1 + \epsilon$, $NCD(x,x) \approx 0$
 
-
+<hr>
 
 **10. Benford Distribution**
 
@@ -225,7 +228,7 @@ First digit law: $P(d) = \log_{10}\left(1 + \frac{1}{d}\right)$ for $d \in \{1,\
 
 Test statistic: $\chi^2 = \sum_{d=1}^9 \frac{(n_d - nP(d))^2}{nP(d)} \sim \chi^2_8$
 
-
+<hr>
 
 **11. MinHash Analysis**
 
@@ -236,7 +239,7 @@ Variance: $\text{Var}(\hat{J}) = \frac{J(1-J)}{k}$
 
 **Proof:** $\Pr(\min(\pi(A)) = \min(\pi(B))) = \frac{|A \cap B|}{|A \cup B|} = J(A,B)$
 
-
+<hr>
 
 **12. LDA Parameter Estimation**
 
@@ -247,7 +250,7 @@ M-step for $\beta$: $\beta_{kw} \propto \sum_{d,n} \phi_{dnk} \mathbb{I}[w_{dn} 
 
 **Topic entropy:** $H_d = -\sum_k \theta_{dk} \log \theta_{dk}$
 
-
+<hr>
 
 **13. Lyapunov & Hurst Estimation**
 
@@ -258,7 +261,7 @@ Wolf's algorithm: $\lambda \approx \frac{1}{M\Delta t} \sum_{k=1}^M \ln \frac{L'
 Hurst via R/S: $\frac{R(n)}{S(n)} \sim cn^H$ where:
 $$R(n) = \max_{1\leq k \leq n} \sum_{j=1}^k (X_j - \bar{X}_n) - \min_{1\leq k \leq n} \sum_{j=1}^k (X_j - \bar{X}_n)$$
 
-
+<hr>
 
 **14. Isomap & LLE Optimization**
 
@@ -269,7 +272,7 @@ MDS: minimize $\sum_{ij} (d_G(i,j) - ||y_i - y_j||)^2$
 **LLE:** Reconstruct weights $w_{ij}$ minimizing:
 $$\Phi(W) = \sum_i ||x_i - \sum_{j \in N(i)} w_{ij}x_j||^2, \quad \sum_j w_{ij} = 1$$
 
-
+<hr>
 
 **15. QMC Error Analysis**
 
@@ -281,7 +284,7 @@ MC error: $O\left(\frac{\sigma}{\sqrt{N}}\right)$ where $\sigma^2 = \text{Var}(f
 
 **Coverage:** QMC fills space with discrepancy $\rightarrow 0$ faster.
 
-
+<hr>
 
 **16. Ensemble Fusion**
 
@@ -289,9 +292,16 @@ Let $h_1,\dots,h_T$ classifiers, outputs $\hat{y}_i^t$, true $y$
 
 **Weighted voting:** $\hat{y} = \arg\max_c \sum_{t=1}^T w_t \mathbb{I}[\hat{y}_i^t = c]$
 
-Optimal weights minimize: $\sum_i L(y_i, \sum_t w_t h_t(x_i))$
+**Optimal weights minimize:** $\sum_i L(y_i, \sum_t w_t h_t(x_i))$
 
-**Bayesian:** $p(y|x, D) \propto p(y) \prod_{t=1}^T p(h_t(x)|y)$
+**Bayesian:** **$p(y|x, D) \propto p(y) \prod_{t=1}^T p(h_t(x)|y)$**
+
+<hr>
+
+</samp>
+
+</details>
+
    References and recommended reading (concise)
 
     - Edelsbrunner, H. & Harer, J. Computational Topology: An Introduction.
