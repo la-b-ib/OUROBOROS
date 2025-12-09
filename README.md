@@ -1,4 +1,4 @@
-# OUROBOROS Ꝏ
+# <samp> OUROBOROS Ꝏ </samp>
 
 <samp> **OUROBOROS Ꝏ is a research-focused forensic toolkit that analyzes binary executables using a broad set of mathematical, statistical and interdisciplinary methods. It is designed to extract robust, explainable signals (topological, spectral, dynamical, informational) and fuse them into an ensemble verdict for advanced malware and anomaly detection.**
 
@@ -325,35 +325,6 @@
     - Niederreiter, H., Sobol sequence references for QMC.
 
 
-   API / Key functions and classes (by file)
-
-   - `advanced_methods.py`
-      - Classes: `PersistentHomologyKernel`, `MultifractalSpectrumAdvanced`, `SpectralGraphClustering`, `RecurrenceQuantificationAdvanced`, `NormalizedCompressionDistance`, `DynamicTimeWarpingAnalysis`, `LatentDirichletAllocationAnalysis`, `BenfordsLawAnalysis`, `MinHashLSH`, `SymbolicExecutionZ3`, `TopologicalAutoencoder`, `ZigzagPersistence`, `IsomapLLE`, `QuasiMonteCarloTDA`.
-      - Engine: `EnsembleFusionEngine` with `analyze(bytes_data, selected_algorithms=None)`.
-      - Visualization helpers: `get_plotly_theme_config()`, `create_persistence_barcode_figure()`, `create_multifractal_spectrum_figure()`, `create_spectral_graph_figure()`.
-
-   - `interdisciplinary_methods.py`
-      - Classes: `GravitationalLensingDeobfuscator`, `EpigeneticStateTracker`, `QuantumWalkControlFlow`, `FluidDynamicsDataFlow`, `StylometricPhoneticRadar`, `EventHorizonEntropySurface`, `SymbioticProcessTree`, `ChronoSlicingTemporalManifold`, `NeuralSymbolicHybridVerifier`, `SonificationSpectralAudio`.
-      - Engine: `InterdisciplinaryEnsemble` with `analyze(bytes_data, selected_algorithms=None)`.
-
-   - `interdisciplinary_visualizations.py`
-      - Visualizers: mapping `VISUALIZATION_MAP` for algorithms 11–20 (functions like `create_gravitational_lensing_figure`, `create_epigenetic_heatmap`, etc.).
-
-   - `app.py` (selected helpers)
-      - `compute_persistence_homology(bytes_data)`
-      - `compute_recurrence_plot(bytes_data)`
-      - `compute_multifractal_spectrum(bytes_data)`
-      - `compute_reeb_graph_skeleton(bytes_data)`
-      - `compute_local_intrinsic_dim(bytes_data)`
-      - `compute_lyapunov_exponent(bytes_data)`
-      - `compute_hurst_exponent(bytes_data)`
-      - `compute_graph_laplacian_spectrum(bytes_data)`
-      - `compute_glcm_texture(bytes_data)`
-      - `compute_kolmogorov_complexity(bytes_data)`
-      - `compute_minhash_signature(bytes_data)`
-      - `assess_threat_level(...)` — combines topological, chaotic and advanced metrics to produce a normalized threat score.
-
-   --
 
    Reproducibility and runtime notes
 
@@ -369,20 +340,7 @@
 
    --
 
-   Minimal example (run an algorithm from python):
-
-   ```python
-   from advanced_methods import PersistentHomologyKernel
-
-   with open('sample.bin', 'rb') as f:
-         data = f.read()
-
-   ph = PersistentHomologyKernel()
-   result = ph.compute(data)
-   print(result['betti_numbers'], result.get('persistence_entropy'))
-   ```
-
-   --
+ 
 
    License and attribution
 
@@ -390,8 +348,4 @@
 
    --
 
-   If you'd like, I can also:
-   - generate a concise algorithm reference PDF from this README,
-   - or produce a developer-focused docstring checklist for each class to ensure all `compute` outputs include typed fields and unit tests.
-
-   If you want me to proceed with any of those, tell me which one.
+  
