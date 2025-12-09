@@ -166,154 +166,189 @@
 
    This appendix provides more rigorous statements, derivations, and references for the core mathematical tools relied on across the codebase. It is intentionally concise and references standard literature where full proofs appear.
 
-   1) Takens' Embedding Theorem (phase-space reconstruction)
+**1. Takens' Embedding Theorem**
 
-      - Statement (informal): For a compact manifold M of dimension m and a generic smooth observation function φ : M → R, the time-delay map
+For dynamical system $f: M \to M$, observation $\phi: M \to \mathbb{R}$, define delay map:
+$$F(x) = (\phi(x), \phi(f(x)), \dots, \phi(f^{2m}(x)))$$
+where $m = \dim(M)$. Generically, $F$ is embedding.
 
-        $$F(x) = (\phi(x), \phi(f(x)), \dots, \phi(f^{2m}(x)))$$
+**Practical implementation:** $d \geq 2m+1$, $\tau$ optimal:
+$$\text{MI}(\tau) = \sum p(x_t, x_{t+\tau}) \log\frac{p(x_t, x_{t+\tau})}{p(x_t)p(x_{t+\tau})}$$
+Vectors: $X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T$
 
-        is an embedding for generic φ, where f is the flow/map on M. This justifies reconstructing an attractor using sliding-window embeddings of scalar time series.
+---
 
-      - Practical implication: choose embedding dimension d ≥ 2m+1 (or use heuristic methods) and a time delay τ (often via mutual information or autocorrelation first-minimum) to create vectors
+**2. VR Persistence Stability**
 
-        $$X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T.$$ 
+For point clouds $X, Y$, diagrams $D_X, D_Y$:
+$$W_\infty(D_X, D_Y) \leq d_H(X, Y)$$
+where $W_\infty(D_1, D_2) = \inf_{\eta} \sup_{x \in D_1} ||x - \eta(x)||_\infty$
+with $\eta: D_1 \to D_2$ bijection.
 
-      - Reference: Takens (1981), Sauer, Yorke & Casdagli (1991) for genericity conditions.
+**Proof sketch:** Stability of persistent modules → bound on diagrams.
 
-   2) Vietoris–Rips and Stability of Persistence
+---
 
-      - Construction: given point cloud X and filtration parameter ε, Vietoris–Rips complex R_ε(X) contains a simplex when all pairwise distances ≤ ε.
+**3. Wasserstein Kernels**
 
-      - Persistence diagram Dgm(H_k) records intervals (b,d) of k-th homology classes. Persistence is d−b.
+$p$-Wasserstein between diagrams $D_1, D_2$:
+$$W_p(D_1, D_2) = \left( \inf_{\eta} \sum_{x \in D_1} ||x - \eta(x)||^p \right)^{1/p}$$
 
-      - Stability theorem (Cohen-Steiner, Edelsbrunner & Harer): small perturbations in the input (in Hausdorff / Gromov–Hausdorff sense) yield small perturbations of diagrams in bottleneck/Wasserstein distance:
+Kernel via heat diffusion:
+$$k(D_1, D_2) = \frac{1}{8\pi t} \sum_{p \in D_1} \sum_{q \in D_2} e^{-\frac{||p-q||^2}{8t}}$$
 
-        $$W_\infty(D_1, D_2) \leq C \cdot d_H(X_1,X_2).$$
+**Sliced-Wasserstein:** Project to lines $\theta \in S^1$:
+$$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$
 
-      - This guarantees robustness to noise and motivates using persistence-based features (e.g., Betti counts, persistence entropy).
+---
 
-      - Reference: Cohen-Steiner, Edelsbrunner & Harer, 2007.
+**4. Persistent Entropy**
 
-   3) Wasserstein & Sliced-Wasserstein kernels on persistence diagrams
+For intervals $\{(b_i, d_i)\}_{i=1}^n$, $p_i = d_i - b_i$, $L = \sum_i p_i$:
+$$P_i = \frac{p_i}{L}, \quad H = -\sum_{i=1}^n P_i \log_2 P_i$$
 
-      - p-Wasserstein distance (recap):
+**Max entropy:** $H_{\max} = \log_2 n$ when $p_i = L/n$ ∀i
 
-        $$W_p(D_1,D_2)=\left(\inf_{\phi} \sum_{x\in D_1} ||x-\phi(x)||^p \right)^{1/p}.$$ 
+**Min entropy:** $H_{\min} = 0$ when $p_k = L$, $p_i = 0$ for $i \neq k$
 
-      - Kernelization: a positive-definite kernel can be built from distances (e.g. Gaussian of the Wasserstein distance) or via Sliced-Wasserstein embeddings which project diagrams to 1D and aggregate.
+---
 
-      - Usage: kernels allow using persistence diagrams with SVMs or kernel methods. Keep in mind computational cost — matching in Wasserstein is an optimal-transport problem.
+**5. Multifractal Spectrum**
 
-   4) Persistent Entropy — derivation
+Partition function: $Z(q, \epsilon) = \sum_i \mu(B_i(\epsilon))^q$
 
-      - Given persistence intervals i with persistence p_i = d_i − b_i, normalize
+Scaling: $Z(q, \epsilon) \sim \epsilon^{\tau(q)}$ as $\epsilon \to 0$
 
-        $$P_i = \frac{p_i}{\sum_j p_j}$$
+Legendre transform:
+$$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$
 
-        then entropy
+**Proof:** From large deviations: $\Pr(\alpha_\epsilon \approx \alpha) \sim \epsilon^{-f(\alpha)}$
 
-        $$H_{pers} = -\sum_i P_i \log_2 P_i.$$ 
+---
 
-      - Interpretation: high persistence entropy indicates a broad distribution of lifetimes (complexity), while low entropy indicates dominance by a few long-lived features.
+**6. RQA Quantifiers**
 
-   5) Multifractal formalism (derivation sketch)
+Recurrence matrix: $R_{ij} = \Theta(\epsilon - ||X_i - X_j||)$
 
-      - Structure functions: define S(q,a) = Σ_i μ(B_i(a))^q where μ(B_i(a)) are measures of boxes of size a.
+Recurrence rate: $RR = \frac{1}{N^2}\sum_{i,j} R_{ij}$
 
-      - Scaling exponent τ(q) is defined by S(q,a) ∼ a^{τ(q)} as a → 0.
+Determinism: $DET = \frac{\sum_{\ell=\ell_{\min}}^N \ell P(\ell)}{\sum_{\ell=1}^N \ell P(\ell)}$
 
-      - Legendre transform: α(q)=τ'(q), f(α)=qα−τ(q) yields the multifractal spectrum f(α).
+Laminarity: $LAM = \frac{\sum_{v=v_{\min}}^N v P(v)}{\sum_{v=1}^N v P(v)}$
 
-      - Numerics: compute τ(q) by linear regressions of log S(q,a) vs log a across scales; α and f(α) via finite differences.
+where $P(\ell) = \#\{\text{diagonals of length } \ell\}$
 
-      - Note: WTMM (wavelet-transform modulus maxima) is more robust for non-stationary signals; our implementation approximates this using structure functions.
+---
 
-   6) Recurrence Quantification Analysis (RQA) metrics
+**7. Cheeger Inequality**
 
-      - Recurrence plot construction: R_{i,j} = Θ(ε − ||X_i − X_j||), where Θ is the Heaviside step and X_i are embedded vectors.
+For graph $G$, normalized Laplacian $L = I - D^{-1/2}AD^{-1/2}$, eigenvalues $0 = \lambda_0 \leq \lambda_1 \leq \dots$
 
-      - Recurrence Rate (RR): fraction of ones in R.
+Cheeger constant: $h(G) = \min_{S \subset V} \frac{|\partial S|}{\min(\text{vol}(S), \text{vol}(V\setminus S))}$
 
-        $$RR = \frac{1}{N^2} \sum_{i,j} R_{i,j}.$$ 
+Inequality: $\frac{\lambda_1}{2} \leq h(G) \leq \sqrt{2\lambda_1}$
 
-      - Determinism (DET): proportion of recurrence points forming diagonal lines (length ≥ l_min), indicating predictability.
+**Proof:** Rayleigh quotient minimax.
 
-      - Laminarity (LAM): proportion forming vertical lines, indicating intermittent laminar phases.
+---
 
-      - These metrics are sensitive to threshold ε; in our code a fixed radius or data-adaptive threshold is used.
+**8. DTW Optimization**
 
-   7) Spectral graph theory and Cheeger / spectral gap interpretation
+Cost matrix $D_{ij} = ||x_i - y_j||$, recurrence:
+$$C(i,j) = D_{ij} + \min\{C(i-1,j), C(i,j-1), C(i-1,j-1)\}$$
+with $C(0,0) = 0$, $C(i,0) = C(0,j) = \infty$
 
-      - Normalized Laplacian L_sym = I − D^{−1/2} A D^{−1/2}. Eigenvalues 0=λ_0 ≤ λ_1 ≤ … reflect connectivity; λ_1 (algebraic connectivity) measures how well-connected the graph is.
+**Sakoe-Chiba band:** $|i-j| \leq w$, complexity $O(w \cdot \min(m,n))$
 
-      - Cheeger inequality links spectral gap and conductance φ(S):
+---
 
-        $$\frac{\lambda_1}{2} \le \phi^* \le \sqrt{2 \lambda_1}.$$ 
+**9. NCD & Information Distance**
 
-      - In practice small spectral gap suggests weakly-connected clusters; large gap suggests strong single-component connectivity. We use spectral gap heuristics to indicate modular obfuscation.
+Based on Kolmogorov complexity $K(x)$:
+$$d(x,y) = \frac{\max\{K(x|y), K(y|x)\}}{\max\{K(x), K(y)\}}$$
 
-   8) Dynamic Time Warping (DTW) recurrence and complexity
+NCD approximation: $C$ compressor,
+$$NCD(x,y) = \frac{C(xy) - \min\{C(x), C(y)\}}{\max\{C(x), C(y)\}}$$
 
-      - Recurrence relation (DP):
+**Properties:** $0 \leq NCD \leq 1 + \epsilon$, $NCD(x,x) \approx 0$
 
-        $$D(i,j)=c(i,j)+\min\{D(i-1,j),D(i,j-1),D(i-1,j-1)\}$$
+---
 
-        with boundary conditions D(0,0)=0.
+**10. Benford Distribution**
 
-      - Complexity: O(nm) time, O(nm) memory; can be optimized with Sakoe–Chiba band or pruning for long sequences.
+First digit law: $P(d) = \log_{10}\left(1 + \frac{1}{d}\right)$ for $d \in \{1,\dots,9\}$
 
-   9) Normalized Compression Distance (NCD) — formal note
+**Derivation:** Scale invariance → unique solution: $P(S) = \int_S \frac{1}{x \ln 10} dx$
 
-      - NCD approximates normalized information distance using compressors C(·):
+Test statistic: $\chi^2 = \sum_{d=1}^9 \frac{(n_d - nP(d))^2}{nP(d)} \sim \chi^2_8$
 
-        $$\mathrm{NCD}(x,y)=\frac{C(xy)-\min\{C(x),C(y)\}}{\max\{C(x),C(y)\}}.$$ 
+---
 
-      - Interpretation: NCD ∈ [0,1+ε]; values near 0 indicate high similarity (shared information), near 1 indicate independence.
+**11. MinHash Analysis**
 
-   10) Benford's law justification and statistical tests
+For sets $A,B$, permutations $\pi_1,\dots,\pi_k$:
+$$\hat{J}(A,B) = \frac{1}{k}\sum_{i=1}^k \mathbb{I}[\min(\pi_i(A)) = \min(\pi_i(B))]$$
 
-      - Benford distribution arises from scale-invariance and multiplicative processes. For first-digit d,
+Variance: $\text{Var}(\hat{J}) = \frac{J(1-J)}{k}$
 
-        $$P(d)=\log_{10}(1+1/d).$$ 
+**Proof:** $\Pr(\min(\pi(A)) = \min(\pi(B))) = \frac{|A \cap B|}{|A \cup B|} = J(A,B)$
 
-      - Goodness-of-fit: χ² statistic (sum of (obs−exp)^2/exp) and KS on cumulative distributions are used in the code.
+---
 
-   11) MinHash and Locality-Sensitive Hashing (brief)
+**12. LDA Parameter Estimation**
 
-      - MinHash approximates Jaccard similarity J(A,B)=|A∩B|/|A∪B| by using permutations π and min_{a∈A} π(a) as a sketch. Fraction of equal sketches estimates J.
+Joint probability:
+$$p(\mathbf{w}, \mathbf{z}, \theta|\alpha, \beta) = \prod_d p(\theta_d|\alpha) \prod_n p(z_{dn}|\theta_d) p(w_{dn}|z_{dn},\beta)$$
 
-      - The variance and hash length (num_perm) control the estimator's accuracy.
+M-step for $\beta$: $\beta_{kw} \propto \sum_{d,n} \phi_{dnk} \mathbb{I}[w_{dn} = w]$
 
-   12) Latent Dirichlet Allocation (LDA) formulation
+**Topic entropy:** $H_d = -\sum_k \theta_{dk} \log \theta_{dk}$
 
-      - Generative model: for each document d, draw topic mixture θ_d ∼ Dir(α); for each word n, draw topic z_{d,n} ∼ Mult(θ_d), word w_{d,n} ∼ Mult(β_{z_{d,n}}).
+---
 
-      - Inference returns per-document topic distributions and per-topic word distributions. We compute topic entropy to measure how concentrated topics are.
+**13. Lyapunov & Hurst Estimation**
 
-   13) Lyapunov exponent and Hurst estimation (practical notes)
+Lyapunov: $\lambda = \lim_{t \to \infty} \frac{1}{t} \ln \frac{||\delta(t)||}{||\delta(0)||}$
 
-      - Largest Lyapunov exponent λ can be estimated from divergence of nearby trajectories using algorithms by Wolf/Sauer/Rosenstein; positive λ indicates chaos.
+Wolf's algorithm: $\lambda \approx \frac{1}{M\Delta t} \sum_{k=1}^M \ln \frac{L'(t_k)}{L(t_{k-1})}$
 
-      - Hurst exponent H estimated via rescaled-range (R/S) or DFA: H≈0.5 (random), H>0.5 (persistent), H<0.5 (anti-persistent).
+Hurst via R/S: $\frac{R(n)}{S(n)} \sim cn^H$ where:
+$$R(n) = \max_{1\leq k \leq n} \sum_{j=1}^k (X_j - \bar{X}_n) - \min_{1\leq k \leq n} \sum_{j=1}^k (X_j - \bar{X}_n)$$
 
-   14) Isomap, LLE and intrinsic dimension
+---
 
-      - Isomap: compute k-nearest-neighbor graph, shortest-path distances approximate geodesic distances, then classical MDS embeds to low-D.
+**14. Isomap & LLE Optimization**
 
-      - LLE: reconstruct local linear weights and embed preserving these reconstructions.
+**Isomap:** Geodesic distance $d_G(i,j) = \min_{P} \sum_{(u,v)\in P} ||x_u - x_v||$
 
-      - Intrinsic dimension estimates and reconstruction error are used as proxies for manifold complexity.
+MDS: minimize $\sum_{ij} (d_G(i,j) - ||y_i - y_j||)^2$
 
-   15) Quasi-Monte Carlo (Sobol) sampling error bound (sketch)
+**LLE:** Reconstruct weights $w_{ij}$ minimizing:
+$$\Phi(W) = \sum_i ||x_i - \sum_{j \in N(i)} w_{ij}x_j||^2, \quad \sum_j w_{ij} = 1$$
 
-      - For functions of bounded variation in the sense of Hardy–Krause, QMC with Sobol sequences yields error O((log N)^d / N) better than Monte Carlo O(N^{-1/2}). In practice this improves coverage for TDA sampling.
+---
 
-   16) Ensemble fusion — probabilistic viewpoint
+**15. QMC Error Analysis**
 
-      - The current engine uses majority/voting fraction as a confidence measure. More principled combinations include Bayesian model averaging or weighted logistic fusion where each algorithm provides a likelihood; that can be added later.
+Koksma-Hlawka: $|\hat{I} - I| \leq V(f) D_N^*$
 
-   --
+For Sobol: $D_N^* = O\left(\frac{(\log N)^d}{N}\right)$
 
+MC error: $O\left(\frac{\sigma}{\sqrt{N}}\right)$ where $\sigma^2 = \text{Var}(f)$
+
+**Coverage:** QMC fills space with discrepancy $\rightarrow 0$ faster.
+
+---
+
+**16. Ensemble Fusion**
+
+Let $h_1,\dots,h_T$ classifiers, outputs $\hat{y}_i^t$, true $y$
+
+**Weighted voting:** $\hat{y} = \arg\max_c \sum_{t=1}^T w_t \mathbb{I}[\hat{y}_i^t = c]$
+
+Optimal weights minimize: $\sum_i L(y_i, \sum_t w_t h_t(x_i))$
+
+**Bayesian:** $p(y|x, D) \propto p(y) \prod_{t=1}^T p(h_t(x)|y)$
    References and recommended reading (concise)
 
     - Edelsbrunner, H. & Harer, J. Computational Topology: An Introduction.
