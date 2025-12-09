@@ -104,65 +104,9 @@
 
    --
 
-   Mathematical formulas and algorithm notes
+ 
 
-   - Vietoris–Rips complex (for point cloud X): a k-simplex [x0,...,xk] is included at scale ε if pairwise distances satisfy
-
-      $$\forall i,j:\ d(x_i,x_j) \leq \varepsilon.$$ 
-
-   - Persistent homology records birth–death pairs (b,d) for homology classes across filtration parameter ε. The persistence of a class is \(d-b\).
-
-   - Wasserstein distance between persistence diagrams D_1 and D_2 (p-Wasserstein):
-
-      $$W_p(D_1,D_2)=\left(\inf_{\phi} \sum_{x\in D_1} ||x-\phi(x)||^p \right)^{1/p},$$
-
-      where \(\phi\) ranges over bijections to points in D_2 (with diagonal allowed).
-
-   - Shannon entropy (used in compression and local-entropy windows):
-
-      $$H=-\sum_i p_i \log_2 p_i.$$ 
-
-   - Multifractal formalism (structure function approach): if
-
-      $$S(q, a) \sim a^{\tau(q)},$$
-
-      then the singularity (Hölder) exponent \(\alpha\) and multifractal spectrum \(f(\alpha)\) satisfy
-
-      $$\alpha(q)=\frac{d\tau(q)}{dq},\qquad f(\alpha)=q\alpha-\tau(q).$$
-
-   - Dynamic Time Warping (DTW) recurrence for cost matrix D:
-
-      $$D(i,j)=c(i,j)+\min\{D(i-1,j),D(i,j-1),D(i-1,j-1)\}$$
-
-   - Normalized Compression Distance (NCD) approximation:
-
-      $$\mathrm{NCD}(x,y)=\frac{C(xy)-\min\{C(x),C(y)\}}{\max\{C(x),C(y)\}},$$
-
-      where \(C(\cdot)\) is the compressed size.
-
-   - Benford's Law (first-digit d):
-
-      $$P(d)=\log_{10}\left(1+\frac{1}{d}\right),\quad d\in\{1,...,9\}.$$ 
-
-   - Graph Laplacian (used in spectral clustering): for adjacency matrix A and degree matrix D,
-
-      $$L=D-A,\qquad L_{\mathrm{sym}}=D^{-1/2}LD^{-1/2}.$$ 
-
-   - Lyapunov exponent approximation (informal):
-
-      $$\lambda = \lim_{t\to\infty} \frac{1}{t} \ln\frac{||\delta x(t)||}{||\delta x(0)||},$$
-
-      where \(\delta x\) is the separation of nearby trajectories.
-
-   - Hurst exponent H (rescaled-range): empirical relation
-
-      $$R/S \sim n^{H},$$
-
-      used to estimate long-range dependence.
-
-   --
-
-   **Mathematical Appendix — Theorems, derivations and formal notes**
+   **Mathematical Appendix**
 
    This appendix provides more rigorous statements, derivations, and references for the core mathematical tools relied on across the codebase. It is intentionally concise and references standard literature where full proofs appear.
 
