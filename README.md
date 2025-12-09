@@ -5,7 +5,7 @@
 
 <details>
    
-**<summary> Algorithms : </summary>**
+**<summary> Algorithms  </summary>**
    
 <samp>
 
@@ -94,100 +94,6 @@
 
 </details>
 
-
-
-## **<samp>Ensemble Framework</samp>**
-
-
-
-<samp>
-
-Let $\mathcal{A} = \{A_i\}_{i=1}^m$ be the finite set of classification algorithms, where $m = |\mathcal{A}| \geq 1$.  
-Define the decision vector $\mathbf{I} \in \{0,1\}^m$ with components:
-
-$$
-I_i =
-\begin{cases}
-1, & \text{if } A_i(X) \text{ classifies input } X \text{ as malicious} \\
-0, & \text{otherwise}
-\end{cases}
-$$
-
-for $i = 1, \dots, m$.
-
-**Vote Aggregation**
-Let $V: \{0,1\}^m \to \mathbb{N}$ be the counting function:
-
-$$
-V(\mathbf{I}) = \sum_{i=1}^{m} I_i = \|\mathbf{I}\|_1
-$$
-
-**Confidence Metric (Unweighted)**
-Define the empirical risk estimator:
-
-$$
-C(\mathbf{I}) = \frac{V(\mathbf{I})}{m} = \frac{1}{m} \sum_{i=1}^{m} I_i \in [0,1]
-$$
-
-**Decision Thresholds**
-Let $t_L, t_H \in (0,1)$ with $t_L < t_H$ be classification boundaries, typically:
-
-$$
-t_L = \frac{1}{3},\quad t_H = \frac{2}{3}
-$$
-
-**Verdict Mapping**
-Define the discrete classification function $\mathcal{V}: [0,1] \to \mathcal{L}$ where $\mathcal{L} = \{\text{LOW}, \text{MODERATE}, \text{HIGH}\}$:
-
-$$
-\mathcal{V}(C) =
-\begin{cases}
-\text{LOW}, & C \in [0, t_L) \\
-\text{MODERATE}, & C \in [t_L, t_H) \\
-\text{HIGH}, & C \in [t_H, 1]
-\end{cases}
-$$
-
-**Weighted Generalization**
-Let $\mathbf{w} \in \mathbb{R}^m_{\geq 0}$ be a weight vector satisfying the normalization constraint:
-
-$$
-\sum_{i=1}^{m} w_i = 1 \quad \text{or equivalently} \quad \mathbf{1}^\top \mathbf{w} = 1
-$$
-
-where $\mathbf{1} = (1, \dots, 1)^\top \in \mathbb{R}^m$.
-
-**Weighted Confidence Metric**
-Define the weighted expectation:
-
-$$
-C_w(\mathbf{I}; \mathbf{w}) = \mathbf{w}^\top \mathbf{I} = \sum_{i=1}^{m} w_i I_i
-$$
-
-which can be interpreted as $\mathbb{E}_{\mathbf{w}}[I_i]$.
-
-**Weighted Verdict Function**
-The classification under weighted aggregation:
-
-$$
-\mathcal{V}_w(\mathbf{I}; \mathbf{w}) = \mathcal{V}\left(C_w(\mathbf{I}; \mathbf{w})\right)
-$$
-
-**Complete Ensemble Output**
-The ensemble algorithm returns the tuple:
-
-$$
-\Phi(\mathbf{I}; \mathbf{w}) = \left\langle C(\mathbf{I}), V(\mathbf{I}), \mathcal{V}(C(\mathbf{I})), \mathcal{V}_w(\mathbf{I}; \mathbf{w}), \{ (A_i, I_i) \}_{i=1}^m \right\rangle
-$$
-
-**Properties**
-- **Monotonicity:** If $\mathbf{I} \preceq \mathbf{J}$ (componentwise), then $C(\mathbf{I}) \leq C(\mathbf{J})$.
-- **Unanimity:** $C(\mathbf{1}) = 1$, $C(\mathbf{0}) = 0$.
-- **Linearity:** $C_w$ is linear in $\mathbf{I}$ for fixed $\mathbf{w}$.
-- **Threshold Continuity:** $\mathcal{V}$ is piecewise constant with discontinuities at $t_L$ and $t_H$.
-
-
-</samp>
 
 
 
