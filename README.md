@@ -90,79 +90,106 @@
       - Purpose: convert byte sequences to audio and analyze spectral/temporal features (centroid, bandwidth, tempo, MFCCs) for perceptual detection.
       - Output keys: `spectrogram_power`, `spectral_centroid`, `tempo`, `mfcc`, `audio_character`, `threat_indicator`.**
 
-   </samp>
+</samp>
 
-   </details>
+</details>
 
 
 
-<details>
-
-**<summary> Ensemble Decision Logic : </summary>**
+## **<samp>Ensemble Framework</samp>**
 
 <samp>
 
-**Voting Scheme**  
-Let $\mathcal{A} = \{a_1, a_2, \dots, a_m\}$ be the set of $m$ algorithms.  
-Each algorithm $a_i \in \mathcal{A}$ outputs a binary threat indicator:
+Let $\mathcal{A} = \{A_i\}_{i=1}^m$ be the finite set of classification algorithms, where $m = |\mathcal{A}| \geq 1$.  
+Define the decision vector $\mathbf{I} \in \{0,1\}^m$ with components:
 
-```math
+$$
 I_i =
 \begin{cases}
-1, & \text{threat detected} \\
-0, & \text{no threat detected}
+1, & \text{if } A_i(X) \text{ classifies input } X \text{ as malicious} \\
+0, & \text{otherwise}
 \end{cases}
-\quad \forall i = 1,\dots,m
-```
+$$
 
-**Threat Vote Count**  
-```math
-V = \sum_{i=1}^m I_i
-```
+for $i = 1, \dots, m$.
 
-**Confidence Score**  
-```math
-C = \frac{V}{m} \in [0,1]
-```
+**Vote Aggregation**
+Let $V: \{0,1\}^m \to \mathbb{N}$ be the counting function:
 
-**Decision Rule**  
-Let $t_L, t_H \in (0,1)$ with $t_L < t_H$ (default: $t_L = 0.33$, $t_H = 0.67$).  
-Then the verdict is given by:
+$$
+V(\mathbf{I}) = \sum_{i=1}^{m} I_i = \|\mathbf{I}\|_1
+$$
 
-```math
-\text{verdict} =
+**Confidence Metric (Unweighted)**
+Define the empirical risk estimator:
+
+$$
+C(\mathbf{I}) = \frac{V(\mathbf{I})}{m} = \frac{1}{m} \sum_{i=1}^{m} I_i \in [0,1]
+$$
+
+**Decision Thresholds**
+Let $t_L, t_H \in (0,1)$ with $t_L < t_H$ be classification boundaries, typically:
+
+$$
+t_L = \frac{1}{3},\quad t_H = \frac{2}{3}
+$$
+
+**Verdict Mapping**
+Define the discrete classification function $\mathcal{V}: [0,1] \to \mathcal{L}$ where $\mathcal{L} = \{\text{LOW}, \text{MODERATE}, \text{HIGH}\}$:
+
+$$
+\mathcal{V}(C) =
 \begin{cases}
-\text{LOW}, & C < t_L \\
-\text{MODERATE}, & t_L \le C < t_H \\
-\text{HIGH}, & C \ge t_H
+\text{LOW}, & C \in [0, t_L) \\
+\text{MODERATE}, & C \in [t_L, t_H) \\
+\text{HIGH}, & C \in [t_H, 1]
 \end{cases}
-```
+$$
 
-**Output Structure**  
-```math
-\text{result} =
-\begin{cases}
-\text{confidence} & = C \\
-\text{threat\_votes} & = V \\
-\text{total\_algorithms} & = m \\
-\text{verdict} & \in \{\text{LOW}, \text{MODERATE}, \text{HIGH}\} \\
-\text{individual\_results} & = \{(a_i, I_i) \mid i = 1,\dots,m\}
-\end{cases}
-```
+**Weighted Generalization**
+Let $\mathbf{w} \in \mathbb{R}^m_{\geq 0}$ be a weight vector satisfying the normalization constraint:
 
-**Generalization – Weighted Voting**  
-Let $w_i \ge 0$, $\sum_{i=1}^m w_i = 1$ be algorithm weights.  
-Then the weighted confidence is:
+$$
+\sum_{i=1}^{m} w_i = 1 \quad \text{or equivalently} \quad \mathbf{1}^\top \mathbf{w} = 1
+$$
 
-```math
-C_w = \sum_{i=1}^m w_i I_i
-```
+where $\mathbf{1} = (1, \dots, 1)^\top \in \mathbb{R}^m$.
 
-and the verdict follows the same threshold rule applied to $C_w$.
+**Weighted Confidence Metric**
+Define the weighted expectation:
+
+$$
+C_w(\mathbf{I}; \mathbf{w}) = \mathbf{w}^\top \mathbf{I} = \sum_{i=1}^{m} w_i I_i
+$$
+
+which can be interpreted as $\mathbb{E}_{\mathbf{w}}[I_i]$.
+
+**Weighted Verdict Function**
+The classification under weighted aggregation:
+
+$$
+\mathcal{V}_w(\mathbf{I}; \mathbf{w}) = \mathcal{V}\left(C_w(\mathbf{I}; \mathbf{w})\right)
+$$
+
+**Complete Ensemble Output**
+The ensemble algorithm returns the tuple:
+
+$$
+\Phi(\mathbf{I}; \mathbf{w}) = \left\langle C(\mathbf{I}), V(\mathbf{I}), \mathcal{V}(C(\mathbf{I})), \mathcal{V}_w(\mathbf{I}; \mathbf{w}), \{ (A_i, I_i) \}_{i=1}^m \right\rangle
+$$
+
+**Properties**
+- **Monotonicity:** If $\mathbf{I} \preceq \mathbf{J}$ (componentwise), then $C(\mathbf{I}) \leq C(\mathbf{J})$.
+- **Unanimity:** $C(\mathbf{1}) = 1$, $C(\mathbf{0}) = 0$.
+- **Linearity:** $C_w$ is linear in $\mathbf{I}$ for fixed $\mathbf{w}$.
+- **Threshold Continuity:** $\mathcal{V}$ is piecewise constant with discontinuities at $t_L$ and $t_H$.
 
 
 </samp>
-</details>
+
+
+
+
 
 <details>
 **<summary>Mathematical Appendix</summary>**
@@ -402,14 +429,4 @@ Let $h_1,\dots,h_T$ classifiers, outputs $\hat{y}_i^t$, true $y$
      
 </details>
 
-## 
 
-
-
-License and attribution
-
-   - See `LICENSE` in the repository root for licensing information.
-
-   --
-
-  
