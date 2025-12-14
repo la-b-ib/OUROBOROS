@@ -59,7 +59,7 @@ $$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$**
 #
 
 
-**5. Multifractal Spectrum**
+**5. Multifractal Spectrum, RQA Quantifiers, Cheeger Inequality & DTW Optimization**
 
 **Partition function:** $Z(q, \epsilon) = \sum_i \mu(B_i(\epsilon))^q$
 
@@ -70,10 +70,6 @@ $$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$
 
 **Proof:** From large deviations: $\Pr(\alpha_\epsilon \approx \alpha) \sim \epsilon^{-f(\alpha)}$
 
-#
-
-
-**6. RQA Quantifiers**
 
 **Recurrence matrix:**
 $$R_{ij} = \Theta(\varepsilon - \lVert X_i - X_j \rVert)$$
@@ -102,10 +98,7 @@ $$LAM = \frac{\sum_{v=v_{\min}}^{N} v \cdot P_{v}}{\sum_{v=1}^{N} v \cdot P_{v}}
 - $DET \in [0,1]$: predictability of system
 - $LAM \in [0,1]$: presence of laminar states
   
-#
 
-
-**7. Cheeger Inequality**
 
 For graph $G$, normalized Laplacian $L = I - D^{-1/2}AD^{-1/2}$, eigenvalues $0 = \lambda_0 \leq \lambda_1 \leq \dots$
 
@@ -115,10 +108,7 @@ For graph $G$, normalized Laplacian $L = I - D^{-1/2}AD^{-1/2}$, eigenvalues $0 
 
 **Proof:** Rayleigh quotient minimax.
 
-#
 
-
-**8. DTW Optimization**
 
 Cost matrix $D_{ij} = ||x_i - y_j||$, recurrence:
 $$C(i,j) = D_{ij} + \min\{C(i-1,j), C(i,j-1), C(i-1,j-1)\}$$
