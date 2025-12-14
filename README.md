@@ -102,14 +102,6 @@ $$NCD(x,y) = \frac{C(xy) - \min\{C(x), C(y)\}}{\max\{C(x), C(y)\}}$$, Properties
 
 ```mermaid
 flowchart LR
-    %% Layout spacing
-    %% These must be declared at the top
-    %% nodeSpacing controls horizontal spacing
-    %% rankSpacing controls vertical spacing
-    %% GitHub supports them here
-    %% nodeSpacing 100
-    %% rankSpacing 100
-
     %% User Interaction Layer
     USER["User"]
     UPLOAD["Executable"]
@@ -136,7 +128,6 @@ flowchart LR
     METRICS["Metrics"]
     VERDICT["Verdict"]
     DETAILS["Details"]
-    PLOTS["Plots"]
 
     %% Flow Connections
     USER ==> UPLOAD ==> VALIDATE ==> EXTRACT
@@ -146,25 +137,23 @@ flowchart LR
     COLLECT ==> FUSION ==> SCORE
     SCORE ==> METRICS ==> VERDICT ==> USER
     SCORE ==> DETAILS ==> USER
-    PLOTS ==> USER
 
-    %% Styling Classes with unified font size
-    classDef user fill:#e6f7ff,stroke:#004080,stroke-width:3px,color:#000,font-weight:bold,font-size:15px
-    classDef process fill:#fffbe6,stroke:#806000,stroke-width:2px,color:#000,font-weight:bold,font-size:15px
-    classDef classical fill:#d0e6ff,stroke:#004080,stroke-width:2px,color:#000,font-size:15px
-    classDef assessment fill:#ffe6e6,stroke:#800000,stroke-width:2px,color:#000,font-size:15px
-    classDef results fill:#e6ffe6,stroke:#004d00,stroke-width:2px,color:#000,font-weight:bold,font-size:15px
+    %% Styling Classes with unified bold 25px text
+    classDef user fill:#e6f7ff,stroke:#004080,stroke-width:3px,color:#000,font-weight:bold,font-size:35px
+    classDef process fill:#fffbe6,stroke:#806000,stroke-width:2px,color:#000,font-weight:bold,font-size:35px
+    classDef classical fill:#d0e6ff,stroke:#004080,stroke-width:2px,color:#000,font-weight:bold,font-size:35px
+    classDef assessment fill:#ffe6e6,stroke:#800000,stroke-width:2px,color:#000,font-weight:bold,font-size:35px
+    classDef results fill:#e6ffe6,stroke:#004d00,stroke-width:2px,color:#000,font-weight:bold,font-size:35px
 
     %% Assign Classes
     class USER,UPLOAD,SELECT user
     class VALIDATE,EXTRACT process
     class TOPO,CHAOS,BIO,SPECTRAL,SYMBOLIC,AUDIO classical
     class COLLECT,FUSION,SCORE assessment
-    class METRICS,VERDICT,DETAILS,PLOTS results
+    class METRICS,VERDICT,DETAILS results
 
     %% Bold connecting lines
-    linkStyle default stroke:#000,stroke-width:3px
-
+    linkStyle default stroke:#000,stroke-width:5px
 
 
 ```
