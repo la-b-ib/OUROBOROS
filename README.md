@@ -3,6 +3,13 @@
 <samp> **OUROBOROS is a research-focused forensic toolkit that analyzes binary executables using a broad set of mathematical, statistical and interdisciplinary methods. It is designed to extract robust, explainable signals (topological, spectral, dynamical, informational) and fuse them into an ensemble verdict for advanced malware and anomaly detection.**
 
 <samp>
+<details>
+   
+**<summary>Project Details</summary>**
+
+<details>
+   
+**<summary>OUROBOROS Preview</summary>**
 
 <p align="left">
   <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/1.png" width="24%" />
@@ -19,6 +26,7 @@
   <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/8.png" width="24%" />
   
 </p>
+</details>
 
 <details>
    
@@ -184,4 +192,4 @@ flowchart LR
 **The core references grounding this work span computational topology, dynamical systems, probabilistic modeling, and numerical methods. Foundational texts include Edelsbrunner and Harer’s *Computational Topology* and their stability results on persistence diagrams, Villani’s *Optimal Transport* for Wasserstein theory, and Strogatz’s *Nonlinear Dynamics and Chaos* alongside Rosenstein, Wolf, and Ott’s algorithms for Lyapunov exponents. Bishop’s *Pattern Recognition and Machine Learning* provides background on LDA and probabilistic models, while Niederreiter’s work on Sobol sequences underpins quasi‑Monte Carlo sampling. Together, these sources supply the theoretical backbone for persistence, chaos analysis, probabilistic inference, and advanced sampling techniques.**
 
 </details>
-
+</details>
