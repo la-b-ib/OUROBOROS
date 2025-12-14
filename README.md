@@ -1,6 +1,6 @@
-# <samp> OUROBOROS Ꝏ </samp>
+# <samp> OUROBOROS </samp>
 
-<samp> **OUROBOROS Ꝏ is a research-focused forensic toolkit that analyzes binary executables using a broad set of mathematical, statistical and interdisciplinary methods. It is designed to extract robust, explainable signals (topological, spectral, dynamical, informational) and fuse them into an ensemble verdict for advanced malware and anomaly detection.**
+<samp> **OUROBOROS is a research-focused forensic toolkit that analyzes binary executables using a broad set of mathematical, statistical and interdisciplinary methods. It is designed to extract robust, explainable signals (topological, spectral, dynamical, informational) and fuse them into an ensemble verdict for advanced malware and anomaly detection.**
 
 
 <details>
