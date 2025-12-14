@@ -5,18 +5,19 @@
 <samp>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/la-b-ib/LitGrid/main/preview/img/prev%207.png" width="32%" />
-
-  <img src="https://raw.githubusercontent.com/la-b-ib/LitGrid/main/preview/img/prev%209.png" width="32%" />
-  <img src="https://raw.githubusercontent.com/la-b-ib/LitGrid/main/preview/img/prev%205.png" width="32%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/1.png" width="24%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/2.png" width="24%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/3.png" width="24%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/4.png" width="24%" />
   
 </p>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/la-b-ib/LitGrid/main/preview/img/prev%203.png" width="32%" /> 
-  <img src="https://raw.githubusercontent.com/la-b-ib/LitGrid/main/preview/img/prev%2010.png" width="32%" />
-  <img src="https://raw.githubusercontent.com/la-b-ib/LitGrid/main/preview/img/prev%2011.png" width="32%" />
-
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/5.png" width="24%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/6.png" width="24%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/7.png" width="24%" />
+  <img src="https://raw.githubusercontent.com/la-b-ib/OUROBOROS/main/preview/8.png" width="24%" />
+  
 </p>
 
 <details>
