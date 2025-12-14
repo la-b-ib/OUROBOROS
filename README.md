@@ -30,9 +30,11 @@
    
 **<summary>Mathematical Appendix</summary>**
 
+<details>
+  
+**<summary>1. Takens' Embedding Theorem, VR Persistence Stability, Wasserstein Kernels & Persistent Entropy</summary>**
 
 
-**1. Takens' Embedding Theorem, VR Persistence Stability, Wasserstein Kernels & Persistent Entropy**
 
 **For dynamical system $f: M \to M$, observation $\phi: M \to \mathbb{R}$, define delay map:
 $$F(x) = (\phi(x), \phi(f(x)), \dots, \phi(f^{2m}(x)))$$
@@ -51,7 +53,7 @@ $$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$**
 **Define persistence: $p_i = d_i - b_i$  Total persistence: $L = \sum_{i=1}^n p_i$  Normalized persistence: $P_i = \frac{p_i}{L}$  Persistent entropy: $$H = -\sum_{i=1}^n P_i \log_2 P_i$$ Persistence intervals $\{(b_i, d_i)\}_{i=1}^n$**
 **Properties: Max: $H_{\max} = \log_2 n$ when $P_i = \frac{1}{n} \ \forall i$ , Min: $H_{\min} = 0$ when $\exists k$ such that $P_k = 1$, $P_i = 0 \ \forall i \neq k$ , Monotonic: Adding zero-length intervals leaves $H$ unchanged, Scale-invariant: $H(\alpha p_i) = H(p_i)$ for $\alpha > 0$**
 
-
+</details>
 
 
 #
