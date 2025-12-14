@@ -32,64 +32,26 @@
 
 
 
-**1. Takens' Embedding Theorem**
+**1. Takens' Embedding Theorem, VR Persistence Stability, Wasserstein Kernels & Persistent Entropy**
 
-For dynamical system $f: M \to M$, observation $\phi: M \to \mathbb{R}$, define delay map:
+**For dynamical system $f: M \to M$, observation $\phi: M \to \mathbb{R}$, define delay map:
 $$F(x) = (\phi(x), \phi(f(x)), \dots, \phi(f^{2m}(x)))$$
-where $m = \dim(M)$. Generically, $F$ is embedding.
-
-**Practical implementation:** $d \geq 2m+1$, $\tau$ optimal:
+where $m = \dim(M)$. Generically, $F$ is embedding. Implementation: $d \geq 2m+1$, $\tau$ optimal:
 $$\text{MI}(\tau) = \sum p(x_t, x_{t+\tau}) \log\frac{p(x_t, x_{t+\tau})}{p(x_t)p(x_{t+\tau})}$$
-**Vectors:** $X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T$
-
-#
-
-
-**2. VR Persistence Stability**
-
-For point clouds $X, Y$, diagrams $D_X, D_Y$:
+**Vectors:** $X_i = [x_i, x_{i+\tau}, \dots, x_{i+(d-1)\tau}]^T$ . For point clouds $X, Y$, diagrams $D_X, D_Y$:
 $$W_\infty(D_X, D_Y) \leq d_H(X, Y)$$
 where $W_\infty(D_1, D_2) = \inf_{\eta} \sup_{x \in D_1} ||x - \eta(x)||_\infty$
-with $\eta: D_1 \to D_2$ bijection.
+with $\eta: D_1 \to D_2$ bijection.** 
 
-**Proof sketch:** Stability of persistent modules → bound on diagrams.
+**$p$-Wasserstein between diagrams $D_1, D_2$:
+$$W_p(D_1, D_2) = \left( \inf_{\eta} \sum_{x \in D_1} ||x - \eta(x)||^p \right)^{1/p}$$ Kernel via heat diffusion:
+$$k(D_1, D_2) = \frac{1}{8\pi t} \sum_{p \in D_1} \sum_{q \in D_2} e^{-\frac{||p-q||^2}{8t}}$$ Sliced-Wasserstein: Project to lines $\theta \in S^1$:
+$$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$**
 
-#
-
-
-**3. Wasserstein Kernels**
-
-$p$-Wasserstein between diagrams $D_1, D_2$:
-$$W_p(D_1, D_2) = \left( \inf_{\eta} \sum_{x \in D_1} ||x - \eta(x)||^p \right)^{1/p}$$
-
-**Kernel via heat diffusion:**
-$$k(D_1, D_2) = \frac{1}{8\pi t} \sum_{p \in D_1} \sum_{q \in D_2} e^{-\frac{||p-q||^2}{8t}}$$
-
-**Sliced-Wasserstein:** Project to lines $\theta \in S^1$:
-$$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$
-
-#
+**Define persistence: $p_i = d_i - b_i$  Total persistence: $L = \sum_{i=1}^n p_i$  Normalized persistence: $P_i = \frac{p_i}{L}$  Persistent entropy: $$H = -\sum_{i=1}^n P_i \log_2 P_i$$ Persistence intervals $\{(b_i, d_i)\}_{i=1}^n$**
+**Properties: Max: $H_{\max} = \log_2 n$ when $P_i = \frac{1}{n} \ \forall i$ , Min: $H_{\min} = 0$ when $\exists k$ such that $P_k = 1$, $P_i = 0 \ \forall i \neq k$ , Monotonic: Adding zero-length intervals leaves $H$ unchanged, Scale-invariant: $H(\alpha p_i) = H(p_i)$ for $\alpha > 0$**
 
 
-**4. Persistent Entropy**
-
-
-**Persistent Entropy**
-
-Given persistence intervals $\{(b_i, d_i)\}_{i=1}^n$:
-
-Define persistence: $p_i = d_i - b_i$  
-Total persistence: $L = \sum_{i=1}^n p_i$  
-Normalized persistence: $P_i = \frac{p_i}{L}$
-
-Then persistent entropy:  
-$$H = -\sum_{i=1}^n P_i \log_2 P_i$$
-
-**Properties:**  
-- **Maximum:** $H_{\max} = \log_2 n$ when $P_i = \frac{1}{n} \ \forall i$  
-- **Minimum:** $H_{\min} = 0$ when $\exists k$ such that $P_k = 1$, $P_i = 0 \ \forall i \neq k$  
-- **Monotonic:** Adding zero-length intervals leaves $H$ unchanged  
-- **Scale-invariant:** $H(\alpha p_i) = H(p_i)$ for $\alpha > 0$
 
 
 #
