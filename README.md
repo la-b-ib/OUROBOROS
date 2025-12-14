@@ -98,6 +98,80 @@ $$NCD(x,y) = \frac{C(xy) - \min\{C(x), C(y)\}}{\max\{C(x), C(y)\}}$$, Properties
 
 <details>
    
+**<summary>Architecture</summary>**
+
+```mermaid
+flowchart LR
+    %% Layout spacing
+    %% These must be declared at the top
+    %% nodeSpacing controls horizontal spacing
+    %% rankSpacing controls vertical spacing
+    %% GitHub supports them here
+    %% nodeSpacing 100
+    %% rankSpacing 100
+
+    %% User Interaction Layer
+    USER["User"]
+    UPLOAD["Executable"]
+    SELECT["Algo"]
+
+    %% Core Processing
+    VALIDATE["Validation"]
+    EXTRACT["Extraction"]
+
+    %% Classical Analysis
+    TOPO["Topology"]
+    CHAOS["Chaos"]
+    BIO["Bio-Digita"]
+    SPECTRAL["Spectral"]
+    SYMBOLIC["Kolmogorov, MinHash"]
+    AUDIO["Audio"]
+
+    %% Threat Assessment
+    COLLECT["Collect"]
+    FUSION["Fusion"]
+    SCORE["Scoring"]
+
+    %% Results
+    METRICS["Metrics"]
+    VERDICT["Verdict"]
+    DETAILS["Details"]
+    PLOTS["Plots"]
+
+    %% Flow Connections
+    USER ==> UPLOAD ==> VALIDATE ==> EXTRACT
+    USER ==> SELECT ==> VALIDATE
+    EXTRACT ==> TOPO & CHAOS & BIO & SPECTRAL & SYMBOLIC & AUDIO
+    TOPO & CHAOS & BIO & SPECTRAL & SYMBOLIC & AUDIO ==> COLLECT
+    COLLECT ==> FUSION ==> SCORE
+    SCORE ==> METRICS ==> VERDICT ==> USER
+    SCORE ==> DETAILS ==> USER
+    PLOTS ==> USER
+
+    %% Styling Classes with unified font size
+    classDef user fill:#e6f7ff,stroke:#004080,stroke-width:3px,color:#000,font-weight:bold,font-size:15px
+    classDef process fill:#fffbe6,stroke:#806000,stroke-width:2px,color:#000,font-weight:bold,font-size:15px
+    classDef classical fill:#d0e6ff,stroke:#004080,stroke-width:2px,color:#000,font-size:15px
+    classDef assessment fill:#ffe6e6,stroke:#800000,stroke-width:2px,color:#000,font-size:15px
+    classDef results fill:#e6ffe6,stroke:#004d00,stroke-width:2px,color:#000,font-weight:bold,font-size:15px
+
+    %% Assign Classes
+    class USER,UPLOAD,SELECT user
+    class VALIDATE,EXTRACT process
+    class TOPO,CHAOS,BIO,SPECTRAL,SYMBOLIC,AUDIO classical
+    class COLLECT,FUSION,SCORE assessment
+    class METRICS,VERDICT,DETAILS,PLOTS results
+
+    %% Bold connecting lines
+    linkStyle default stroke:#000,stroke-width:3px
+
+
+
+```
+
+</details>
+<details>
+   
 **<summary>References</summary>**
 
 
