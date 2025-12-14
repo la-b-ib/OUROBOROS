@@ -58,66 +58,16 @@ $$SW(D_1, D_2) = \int_{S^1} W_1(\pi_\theta(D_1), \pi_\theta(D_2)) d\theta$$**
 
 #
 
-
-**5. Multifractal Spectrum, RQA Quantifiers, Cheeger Inequality & DTW Optimization**
-
-**Partition function:** $Z(q, \epsilon) = \sum_i \mu(B_i(\epsilon))^q$
-
-**Scaling:** $Z(q, \epsilon) \sim \epsilon^{\tau(q)}$ as $\epsilon \to 0$
-
-**Legendre transform:**
-$$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$
-
-**Proof:** From large deviations: $\Pr(\alpha_\epsilon \approx \alpha) \sim \epsilon^{-f(\alpha)}$
-
-
-**Recurrence matrix:**
-$$R_{ij} = \Theta(\varepsilon - \lVert X_i - X_j \rVert)$$
-where:
-- $\Theta$: Heaviside function
-- $\varepsilon$: recurrence threshold
-- $X_i \in \mathbb{R}^d$: embedded vectors
-
-**Recurrence rate (RR):**
-$$RR = \frac{1}{N^2} \sum_{i,j=1}^N R_{ij}$$
-
-**Determinism (DET):**
-Let $P_{\ell} = \text{number of diagonal lines of length } \ell \text{ in } R$
-$$DET = \frac{\sum_{\ell=\ell_{\min}}^{N} \ell \cdot P_{\ell}}{\sum_{\ell=1}^{N} \ell \cdot P_{\ell}}$$
-
-**Laminarity (LAM):**
-Let $P_{v} = \text{number of vertical lines of length } v \text{ in } R$
-$$LAM = \frac{\sum_{v=v_{\min}}^{N} v \cdot P_{v}}{\sum_{v=1}^{N} v \cdot P_{v}}$$
-
-**Typical parameters:**
-- $\ell_{\min} = 2$ (minimal diagonal line length)
-- $v_{\min} = 2$ (minimal vertical line length)
-
-**Interpretation:**
-- $RR \in [0,1]$: density of recurrence points
-- $DET \in [0,1]$: predictability of system
-- $LAM \in [0,1]$: presence of laminar states
+<details>
   
+**<summary>2. Multifractal Spectrum, RQA Quantifiers, Cheeger Inequality & DTW Optimization</summary>**
 
 
-For graph $G$, normalized Laplacian $L = I - D^{-1/2}AD^{-1/2}$, eigenvalues $0 = \lambda_0 \leq \lambda_1 \leq \dots$
+**Partition function: $Z(q, \epsilon) = \sum_i \mu(B_i(\epsilon))^q$, Scaling: $Z(q, \epsilon) \sim \epsilon^{\tau(q)}$ as $\epsilon \to 0$, Legendre transform: $$\alpha(q) = \frac{d\tau}{dq}, \quad f(\alpha) = q\alpha - \tau(q)$$, Proof: From large deviations: $\Pr(\alpha_\epsilon \approx \alpha) \sim \epsilon^{-f(\alpha)}$, Recurrence matrix:
+$$R_{ij} = \Theta(\varepsilon - \lVert X_i - X_j \rVert)$$ where: $\Theta$: Heaviside function, $\varepsilon$: recurrence threshold, $X_i \in \mathbb{R}^d$: embedded vectors, Recurrence rate (RR): $$RR = \frac{1}{N^2} \sum_{i,j=1}^N R_{ij}$$, Determinism (DET): Let $P_{\ell} = \text{number of diagonal lines of length } \ell \text{ in } R$
+$$DET = \frac{\sum_{\ell=\ell_{\min}}^{N} \ell \cdot P_{\ell}}{\sum_{\ell=1}^{N} \ell \cdot P_{\ell}}$$, Laminarity (LAM): Let $P_{v} = \text{number of vertical lines of length } v \text{ in } R$, $$LAM = \frac{\sum_{v=v_{\min}}^{N} v \cdot P_{v}}{\sum_{v=1}^{N} v \cdot P_{v}}$$, Typical parameters: $\ell_{\min} = 2$ (minimal diagonal line length), $v_{\min} = 2$ (minimal vertical line length), Interpretation: $RR \in [0,1]$: density of recurrence points, $DET \in [0,1]$: predictability of system, $LAM \in [0,1]$: presence of laminar states For graph $G$, normalized Laplacian $L = I - D^{-1/2}AD^{-1/2}$, eigenvalues $0 = \lambda_0 \leq \lambda_1 \leq \dots$, Cheeger constant: $h(G) = \min_{S \subset V} \frac{|\partial S|}{\min(\text{vol}(S), \text{vol}(V\setminus S))}$, Inequality: $\frac{\lambda_1}{2} \leq h(G) \leq \sqrt{2\lambda_1}$, Proof: Rayleigh quotient minimax. Cost matrix $D_{ij} = ||x_i - y_j||$, recurrence: $$C(i,j) = D_{ij} + \min\{C(i-1,j), C(i,j-1), C(i-1,j-1)\}$$, with $C(0,0) = 0$, $C(i,0) = C(0,j) = \infty$, Sakoe-Chiba band: $|i-j| \leq w$, complexity $O(w \cdot \min(m,n))$**
 
-**Cheeger constant:** $h(G) = \min_{S \subset V} \frac{|\partial S|}{\min(\text{vol}(S), \text{vol}(V\setminus S))}$
-
-**Inequality:** $\frac{\lambda_1}{2} \leq h(G) \leq \sqrt{2\lambda_1}$
-
-**Proof:** Rayleigh quotient minimax.
-
-
-
-Cost matrix $D_{ij} = ||x_i - y_j||$, recurrence:
-$$C(i,j) = D_{ij} + \min\{C(i-1,j), C(i,j-1), C(i-1,j-1)\}$$
-with $C(0,0) = 0$, $C(i,0) = C(0,j) = \infty$
-
-**Sakoe-Chiba band:** $|i-j| \leq w$, complexity $O(w \cdot \min(m,n))$
-
-#
-
+</details>
 
 **9. NCD & Information Distance**
 
