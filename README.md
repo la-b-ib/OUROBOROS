@@ -192,4 +192,16 @@ flowchart LR
 **The core references grounding this work span computational topology, dynamical systems, probabilistic modeling, and numerical methods. Foundational texts include Edelsbrunner and Harer’s *Computational Topology* and their stability results on persistence diagrams, Villani’s *Optimal Transport* for Wasserstein theory, and Strogatz’s *Nonlinear Dynamics and Chaos* alongside Rosenstein, Wolf, and Ott’s algorithms for Lyapunov exponents. Bishop’s *Pattern Recognition and Machine Learning* provides background on LDA and probabilistic models, while Niederreiter’s work on Sobol sequences underpins quasi‑Monte Carlo sampling. Together, these sources supply the theoretical backbone for persistence, chaos analysis, probabilistic inference, and advanced sampling techniques.**
 
 </details>
+
+
+<details>
+  
+**<summary>Legal Disclaimer</summary>** 
+```javascript
+
+OUROBOROS is provided solely for academic and research purposes. No warranties are expressed or implied, and the authors assume no liability for misuse, damages, or outcomes. Users are fully responsible for ensuring compliance with applicable laws, regulations, and ethical standards.
+  
+```
 </details>
+
+
